@@ -6,7 +6,9 @@
 <title>HERMES theme · brand-kit picture overview</title>
 <link rel="stylesheet" href="dist/hermes.css" />
 <style>
-  /* page chrome (theme-agnostic shell) */
+  /* ------------------------------------------------------------------
+     page chrome
+  ------------------------------------------------------------------ */
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
@@ -21,8 +23,11 @@
     padding: 32px clamp(20px, 4vw, 56px) 80px;
   }
 
-  /* layout */
-  .wrap { max-width: 1280px; margin: 0 auto; display: grid; gap: 28px; }
+  .wrap { max-width: 1320px; margin: 0 auto; display: grid; gap: 28px; }
+
+  /* ------------------------------------------------------------------
+     hero
+  ------------------------------------------------------------------ */
   header.hero {
     border: 1px solid var(--border);
     background: linear-gradient(135deg,
@@ -40,10 +45,7 @@
   header.hero::before {
     content: "";
     position: absolute; inset: 0;
-    background:
-      repeating-linear-gradient(0deg,
-        transparent 0 2px,
-        rgba(255,255,255,0.012) 2px 3px);
+    background: repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.012) 2px 3px);
     pointer-events: none;
   }
   .eyebrow {
@@ -61,16 +63,8 @@
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .tagline {
-    color: var(--text-muted);
-    max-width: 68ch;
-    margin: 0;
-    font-size: 15px;
-  }
-  .hero-meta {
-    margin-top: 18px;
-    display: flex; flex-wrap: wrap; gap: 8px;
-  }
+  .tagline { color: var(--text-muted); max-width: 68ch; margin: 0; font-size: 15px; }
+  .hero-meta { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
   .chip {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 4px 10px;
@@ -81,18 +75,16 @@
     font: 600 11px/1.4 var(--font-mono);
     letter-spacing: 0.04em;
   }
-  .chip::before {
-    content: "";
-    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
-  }
+  .chip::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
   .chip[data-tone="pink"]::before { background: var(--accent-2); box-shadow: 0 0 8px var(--accent-2); }
   .chip[data-tone="green"]::before { background: var(--success); box-shadow: 0 0 8px var(--success); }
   .chip[data-tone="amber"]::before { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
   .chip[data-tone="coral"]::before { background: var(--accent-3); box-shadow: 0 0 8px var(--accent-3); }
   .chip[data-tone="plum"]::before { background: var(--accent-4); box-shadow: 0 0 8px var(--accent-4); }
 
+  /* ------------------------------------------------------------------
+     section / pillar
+  ------------------------------------------------------------------ */
   section {
     border: 1px solid var(--border);
     background: var(--surface-1);
@@ -100,65 +92,42 @@
     padding: 22px 24px 24px;
     box-shadow: var(--shadow);
   }
-  section > h2 {
-    margin: 0 0 4px;
-    font: 700 18px/1.2 var(--font-body);
-    letter-spacing: -0.005em;
-  }
+  section > h2 { margin: 0 0 4px; font: 700 18px/1.2 var(--font-body); letter-spacing: -0.005em; }
   section > h2 + .sub { margin: 0 0 18px; color: var(--text-dim); font: 400 12.5px/1.45 var(--font-body); }
 
-  /* swatches */
-  .swatches {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-  }
-  .sw {
-    display: grid;
-    gap: 6px;
-    padding: 10px 12px;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border);
-    background: var(--surface-2);
-  }
-  .sw .chip-color {
-    height: 56px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-  .sw .chip-color::after {
-    content: "";
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.18) 100%);
-    pointer-events: none;
-  }
-  .sw .lbl { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
-  .sw .lbl b { font: 600 12.5px/1 var(--font-body); }
-  .sw .hex {
-    font: 500 11px/1 var(--font-mono);
-    color: var(--text-muted);
-  }
-  .sw .role {
-    font: 400 10.5px/1.2 var(--font-mono);
-    color: var(--text-dim);
-    letter-spacing: 0.04em;
+  .pillar-eyebrow {
+    font: 600 10.5px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin: 0 0 6px;
   }
 
-  /* surfaces strip */
-  .surfaces {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
+  h3.subhead {
+    margin: 22px 0 12px;
+    font: 600 13px/1.2 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px dashed var(--border);
+    padding-top: 14px;
   }
-  .surf {
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 12px;
-    min-height: 78px;
-    font: 500 11px/1.25 var(--font-mono);
-  }
+  h3.subhead:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+
+  /* ------------------------------------------------------------------
+     swatches / surfaces / type
+  ------------------------------------------------------------------ */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .sw { display: grid; gap: 6px; padding: 10px 12px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--surface-2); }
+  .sw .chip-color { height: 56px; border-radius: var(--radius); border: 1px solid var(--border); position: relative; overflow: hidden; }
+  .sw .chip-color::after { content: ""; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.18) 100%); pointer-events: none; }
+  .sw .lbl { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .sw .lbl b { font: 600 12.5px/1 var(--font-body); }
+  .sw .hex { font: 500 11px/1 var(--font-mono); color: var(--text-muted); }
+  .sw .role { font: 400 10.5px/1.2 var(--font-mono); color: var(--text-dim); letter-spacing: 0.04em; }
+
+  .surfaces { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .surf { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 12px; min-height: 78px; font: 500 11px/1.25 var(--font-mono); }
   .surf b { display: block; font-weight: 700; margin-bottom: 4px; color: var(--text); }
   .surf span { color: var(--text-dim); font-size: 10.5px; }
   .surf.s0 { background: var(--surface-bg); }
@@ -167,7 +136,6 @@
   .surf.s3 { background: var(--surface-3); }
   .surf.s4 { background: var(--surface-4); }
 
-  /* type */
   .type-stack { display: grid; gap: 14px; }
   .t1 { font: 800 36px/1.05 var(--font-body); letter-spacing: -0.02em; }
   .t2 { font: 700 24px/1.15 var(--font-body); letter-spacing: -0.01em; }
@@ -179,197 +147,709 @@
   .type-row:last-child { border-bottom: 0; }
   .type-row .meta { font: 500 11px/1.2 var(--font-mono); color: var(--text-dim); padding-top: 6px; }
 
-  /* component preview row */
-  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  /* ------------------------------------------------------------------
+     showcase grid (used by build components + data viz)
+  ------------------------------------------------------------------ */
+  .grid { display: grid; gap: 14px; }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 1100px) { .g4 { grid-template-columns: repeat(2, 1fr); } .g3 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) { .g4, .g3, .g2 { grid-template-columns: 1fr; } }
 
-  .btn {
-    font: 600 13px/1 var(--font-body);
-    padding: 10px 16px;
-    border-radius: var(--radius);
-    border: 1px solid transparent;
-    cursor: pointer;
-    transition: transform 100ms ease, box-shadow 150ms ease, background 150ms;
+  .sc {
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--radius-lg);
+    padding: 14px;
+    display: grid;
+    gap: 10px;
+    min-height: 130px;
+    position: relative;
   }
+  .sc header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    font: 700 11px/1 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 6px;
+  }
+  .sc header .num { color: var(--text-dim); font-weight: 500; }
+  .sc .stage { display: grid; gap: 8px; align-items: center; min-height: 70px; }
+  .sc .stage.center { justify-items: center; }
+  .sc .note { font: 400 11px/1.35 var(--font-body); color: var(--text-dim); }
+
+  /* ------------------------------------------------------------------
+     primitives (buttons, inputs, etc)
+  ------------------------------------------------------------------ */
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+  .btn { font: 600 12.5px/1 var(--font-body); padding: 9px 14px; border-radius: var(--radius); border: 1px solid transparent; cursor: pointer; transition: transform 100ms ease, box-shadow 150ms ease; }
   .btn:hover { transform: translateY(-1px); }
-  .btn-primary {
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
-    color: #06000F;
-    box-shadow: 0 4px 16px rgba(0,212,255,0.28), 0 0 0 1px rgba(255,255,255,0.06) inset;
-  }
-  .btn-secondary {
-    background: var(--surface-3);
-    color: var(--text);
-    border-color: var(--border-strong);
-  }
-  .btn-ghost {
-    background: transparent;
-    color: var(--accent);
-    border-color: var(--border);
-  }
-  .btn-danger {
-    background: var(--danger);
-    color: #fff;
-  }
+  .btn-primary { background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%); color: #06000F; box-shadow: 0 4px 16px rgba(0,212,255,0.28), 0 0 0 1px rgba(255,255,255,0.06) inset; }
+  .btn-secondary { background: var(--surface-3); color: var(--text); border-color: var(--border-strong); }
+  .btn-ghost { background: transparent; color: var(--accent); border-color: var(--border); }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-sm { padding: 6px 10px; font-size: 11.5px; }
 
-  input.input {
+  .input, .textarea, .select-trigger {
     background: var(--surface-2);
     border: 1px solid var(--border);
     color: var(--text);
     border-radius: var(--radius);
-    padding: 9px 12px;
-    font: 500 13px/1.2 var(--font-body);
-    min-width: 220px;
-    transition: border-color 120ms, box-shadow 120ms;
+    padding: 8px 10px;
+    font: 500 12.5px/1.2 var(--font-body);
+    width: 100%;
   }
-  input.input:focus {
-    outline: none;
-    border-color: var(--focus-ring);
-    box-shadow: 0 0 0 3px rgba(233,30,140,0.25);
-  }
+  .input:focus, .textarea:focus { outline: none; border-color: var(--focus-ring); box-shadow: 0 0 0 3px rgba(233,30,140,0.25); }
+  .textarea { min-height: 56px; resize: none; }
+  .label { font: 500 11px/1.2 var(--font-mono); color: var(--text-muted); margin-bottom: 4px; display: block; }
 
+  .help { font: 400 11px/1.3 var(--font-body); color: var(--text-dim); margin-top: 4px; }
+
+  /* checkbox / radio */
+  .cb, .rb { display: inline-flex; align-items: center; gap: 8px; font: 500 12.5px/1 var(--font-body); cursor: pointer; }
+  .cb-box, .rb-box {
+    width: 16px; height: 16px; border: 1.5px solid var(--border-strong); background: var(--surface-2);
+    display: inline-grid; place-items: center;
+  }
+  .cb-box { border-radius: 3px; }
+  .rb-box { border-radius: 50%; }
+  .cb-box.on { background: var(--accent); border-color: var(--accent); }
+  .cb-box.on::after { content: "✓"; color: #06000F; font: 700 11px/1 var(--font-mono); }
+  .rb-box.on::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+
+  /* switch */
+  .sw-track { width: 38px; height: 22px; border-radius: 999px; background: var(--surface-3); border: 1px solid var(--border); position: relative; display: inline-block; }
+  .sw-track .thumb { position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: var(--text-muted); transition: all 150ms; }
+  .sw-track.on { background: linear-gradient(90deg, var(--accent), var(--accent-bright)); }
+  .sw-track.on .thumb { left: 18px; background: #06000F; }
+
+  /* segmented control */
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-2); overflow: hidden; }
+  .seg span { padding: 6px 11px; font: 600 11px/1 var(--font-mono); color: var(--text-muted); border-right: 1px solid var(--border); }
+  .seg span:last-child { border-right: 0; }
+  .seg span.on { background: var(--surface-3); color: var(--accent); }
+
+  /* toggle group (icon-style) */
+  .tg { display: inline-flex; gap: 4px; }
+  .tg button {
+    width: 28px; height: 28px; border-radius: var(--radius);
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted);
+    font: 700 11px/1 var(--font-mono); cursor: pointer;
+  }
+  .tg button.on { background: var(--surface-4); color: var(--accent); border-color: var(--border-strong); }
+
+  /* range slider */
+  .range { position: relative; height: 22px; padding: 8px 0; }
+  .range .rail { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); height: 4px; background: var(--surface-3); border-radius: 999px; }
+  .range .fill { position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 999px; }
+  .range .thumb { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 14px; height: 14px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(0,212,255,0.18); }
+
+  /* number input stepper */
+  .num-input { display: inline-flex; align-items: stretch; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface-2); }
+  .num-input .val { padding: 6px 12px; font: 600 13px/1.2 var(--font-mono); color: var(--text); min-width: 50px; text-align: center; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .num-input button { width: 28px; background: var(--surface-3); border: 0; color: var(--accent); font: 700 14px/1 var(--font-mono); cursor: pointer; }
+
+  /* tag input + tags */
+  .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px 3px 10px; border-radius: 999px; background: var(--surface-3); color: var(--text); border: 1px solid var(--border); font: 600 11px/1.4 var(--font-mono); }
+  .tag .x { width: 14px; height: 14px; display: grid; place-items: center; border-radius: 50%; background: var(--surface-2); color: var(--text-dim); font-size: 11px; cursor: pointer; }
+  .tag-acc { background: var(--surface-4); border-color: var(--border-strong); color: var(--accent); }
+
+  /* search field */
+  .search {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 7px 10px; color: var(--text-muted);
+    font: 500 12.5px/1.2 var(--font-body);
+  }
+  .search .glyph { color: var(--accent); font-family: var(--font-mono); font-weight: 700; }
+  .search input { all: unset; flex: 1; color: var(--text); }
+  .search .kbd { font: 600 10px/1 var(--font-mono); padding: 2px 5px; border: 1px solid var(--border); border-radius: 3px; color: var(--text-dim); }
+
+  /* combobox / select */
+  .combo {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--surface-2); padding: 7px 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    font: 500 12.5px/1.2 var(--font-body);
+  }
+  .combo .caret { color: var(--accent); font-family: var(--font-mono); }
+  .combo-list {
+    margin-top: 4px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    background: var(--surface-3);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .combo-list .opt { padding: 6px 10px; font: 500 12px/1.2 var(--font-body); display: flex; justify-content: space-between; }
+  .combo-list .opt.on { background: var(--surface-4); color: var(--accent); }
+  .combo-list .opt:not(:last-child) { border-bottom: 1px solid var(--border); }
+  .combo-list .opt .kb { color: var(--text-dim); font-family: var(--font-mono); font-size: 11px; }
+
+  /* color picker */
+  .cpick { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
+  .cpick span { aspect-ratio: 1; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); cursor: pointer; }
+  .cpick span.on { box-shadow: 0 0 0 2px var(--surface-1), 0 0 0 4px var(--accent); }
+
+  /* file upload */
+  .upload {
+    border: 1.5px dashed var(--border-strong); border-radius: var(--radius-lg);
+    background: var(--surface-2);
+    padding: 16px; text-align: center;
+    color: var(--text-muted); font: 500 12.5px/1.4 var(--font-body);
+  }
+  .upload b { color: var(--accent); }
+  .upload .meta { font: 400 11px/1.3 var(--font-mono); color: var(--text-dim); margin-top: 4px; }
+
+  /* split button */
+  .split { display: inline-flex; border-radius: var(--radius); overflow: hidden; box-shadow: 0 4px 16px rgba(0,212,255,0.28); }
+  .split .main { padding: 8px 14px; background: linear-gradient(135deg, var(--accent), var(--accent-bright)); color: #06000F; font: 600 12.5px/1 var(--font-body); }
+  .split .drop { padding: 8px 10px; background: var(--accent-bright); color: #06000F; font: 700 11px/1 var(--font-mono); border-left: 1px solid rgba(6,0,15,0.2); }
+
+  /* button group */
+  .bg-group { display: inline-flex; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+  .bg-group span { padding: 7px 12px; background: var(--surface-2); color: var(--text); font: 600 11.5px/1 var(--font-body); border-right: 1px solid var(--border); }
+  .bg-group span:last-child { border-right: 0; }
+  .bg-group span.on { background: var(--surface-4); color: var(--accent); }
+
+  /* date / time picker mini */
+  .mini-cal { font-family: var(--font-mono); font-size: 10.5px; }
+  .mini-cal .hd { color: var(--text-muted); display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; padding-bottom: 4px; border-bottom: 1px dashed var(--border); }
+  .mini-cal .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; padding-top: 4px; }
+  .mini-cal .day { padding: 4px 0; text-align: center; color: var(--text-muted); border-radius: 3px; }
+  .mini-cal .day.dim { color: var(--text-dim); }
+  .mini-cal .day.t { color: var(--accent); border: 1px solid var(--accent); }
+  .mini-cal .day.sel { background: var(--accent); color: #06000F; font-weight: 700; }
+  .mini-cal .day.in-range { background: rgba(0,212,255,0.15); color: var(--accent); }
+
+  .time-picker { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-mono); color: var(--text); background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 6px 10px; font-size: 13px; }
+  .time-picker .colon { color: var(--text-dim); }
+  .time-picker .ap { padding: 1px 5px; background: var(--surface-4); border-radius: 3px; color: var(--accent); font-size: 10.5px; margin-left: 4px; }
+
+  /* ------------------------------------------------------------------
+     status / feedback
+  ------------------------------------------------------------------ */
   .badge {
     display: inline-flex; align-items: center; gap: 6px;
     padding: 3px 9px;
     border-radius: 999px;
     font: 600 10.5px/1.3 var(--font-mono);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border: 1px solid var(--border);
-    background: var(--surface-3);
-    color: var(--text);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    border: 1px solid var(--border); background: var(--surface-3); color: var(--text);
   }
   .badge.success { color: var(--success); border-color: rgba(0,255,136,0.4); background: rgba(0,255,136,0.10); }
   .badge.warning { color: var(--warning); border-color: rgba(251,191,36,0.45); background: rgba(251,191,36,0.10); }
   .badge.danger { color: var(--danger); border-color: rgba(255,59,110,0.45); background: rgba(255,59,110,0.10); }
   .badge.info { color: var(--info); border-color: rgba(0,212,255,0.45); background: rgba(0,212,255,0.10); }
 
+  .badge-count {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 18px; height: 18px; padding: 0 5px; border-radius: 999px;
+    background: var(--danger); color: #fff; font: 700 10px/1 var(--font-mono);
+  }
+  .badge-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--success); box-shadow: 0 0 6px var(--success); }
+  .badge-dot.warn { background: var(--warning); box-shadow: 0 0 6px var(--warning); }
+  .badge-dot.danger { background: var(--danger); box-shadow: 0 0 6px var(--danger); }
+
+  /* pulse */
+  .pulse { width: 12px; height: 12px; border-radius: 50%; background: var(--success); position: relative; }
+  .pulse::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--success); opacity: 0.4; animation: pulse 1.6s ease-out infinite; }
+  @keyframes pulse { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(1.7); opacity: 0; } }
+
+  /* status pill (with leading dot) */
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px 3px 7px; border-radius: 999px; background: var(--surface-3); font: 600 11px/1.3 var(--font-mono); border: 1px solid var(--border); color: var(--text-muted); }
+  .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .pill.ok::before { background: var(--success); }
+  .pill.warn::before { background: var(--warning); }
+  .pill.err::before { background: var(--danger); }
+
+  /* progress */
+  .prog { height: 6px; background: var(--surface-3); border-radius: 999px; overflow: hidden; }
+  .prog .bar { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-bright)); border-radius: 999px; }
+  .prog-circle { width: 56px; height: 56px; border-radius: 50%; background: conic-gradient(var(--accent) 0 68%, var(--surface-3) 68% 100%); display: grid; place-items: center; position: relative; }
+  .prog-circle::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; background: var(--surface-1); }
+  .prog-circle .pct { position: relative; z-index: 1; font: 700 13px/1 var(--font-mono); color: var(--accent); }
+
+  /* spinner */
+  .spin { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--surface-3); border-top-color: var(--accent); animation: spin 0.9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* alert */
+  .alert {
+    display: grid; grid-template-columns: 24px 1fr; gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    border: 1px solid var(--accent);
+    background: rgba(0,212,255,0.07);
+    font-size: 12px;
+  }
+  .alert .ico { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: var(--surface-bg); display: grid; place-items: center; font: 700 13px/1 var(--font-mono); }
+  .alert b { display: block; margin-bottom: 2px; color: var(--text); }
+  .alert span { color: var(--text-muted); }
+  .alert.warning { border-color: var(--warning); background: rgba(251,191,36,0.08); }
+  .alert.warning .ico { background: var(--warning); }
+  .alert.danger { border-color: var(--danger); background: rgba(255,59,110,0.08); }
+  .alert.danger .ico { background: var(--danger); color: #fff; }
+  .alert.success { border-color: var(--success); background: rgba(0,255,136,0.08); }
+  .alert.success .ico { background: var(--success); }
+
+  /* toast */
+  .toast {
+    background: var(--surface-3); border: 1px solid var(--border-strong);
+    border-radius: var(--radius); padding: 10px 12px;
+    box-shadow: var(--shadow-lg);
+    display: grid; grid-template-columns: 8px 1fr auto; gap: 10px; align-items: center;
+    font-size: 12px;
+  }
+  .toast .stripe { width: 4px; height: 100%; background: var(--success); border-radius: 4px; }
+  .toast b { color: var(--text); }
+  .toast .ago { color: var(--text-dim); font: 500 10.5px/1 var(--font-mono); }
+
+  /* banner (top-of-page) */
+  .banner {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px; border-radius: var(--radius);
+    background: linear-gradient(90deg, rgba(0,212,255,0.14), rgba(233,30,140,0.12));
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    font-size: 12.5px;
+  }
+  .banner .lead { font: 700 10.5px/1 var(--font-mono); letter-spacing: 0.08em; color: var(--accent); }
+
+  /* avatar */
+  .av { width: 30px; height: 30px; border-radius: 50%; display: inline-grid; place-items: center; font: 700 11px/1 var(--font-mono); color: #06000F; background: var(--accent); border: 2px solid var(--surface-1); }
+  .av.b2 { background: var(--accent-2); color: #fff; }
+  .av.b3 { background: var(--accent-3); color: #06000F; }
+  .av.b4 { background: var(--accent-4); color: #fff; }
+  .av.b5 { background: var(--accent-5); color: #06000F; }
+  .av-group { display: inline-flex; }
+  .av-group .av { margin-left: -8px; }
+  .av-group .av:first-child { margin-left: 0; }
+  .av-more { background: var(--surface-3); color: var(--text-muted); }
+
+  /* ------------------------------------------------------------------
+     surfaces (cards, modals, drawers, popovers)
+  ------------------------------------------------------------------ */
   .card {
     border: 1px solid var(--border);
     background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
     border-radius: var(--radius-lg);
-    padding: 18px 18px 16px;
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
+    padding: 14px 14px 12px;
+    position: relative; overflow: hidden;
   }
   .card::before {
-    content: "";
-    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
     background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
   }
-  .card h4 { margin: 0 0 4px; font: 700 14px/1.2 var(--font-body); }
-  .card p { margin: 0; color: var(--text-muted); font-size: 13px; }
-  .card .kpi { margin-top: 10px; font: 800 28px/1 var(--font-body); color: var(--accent); }
-  .card .kpi .delta { font-size: 12px; font-weight: 600; margin-left: 8px; color: var(--success); }
+  .card h4 { margin: 0 0 4px; font: 700 13px/1.2 var(--font-body); }
+  .card p { margin: 0; color: var(--text-muted); font-size: 12px; }
+  .card .kpi { margin-top: 8px; font: 800 24px/1 var(--font-body); color: var(--accent); }
+  .card .kpi .delta { font-size: 11px; font-weight: 600; margin-left: 6px; color: var(--success); }
 
-  /* alert */
-  .alert {
-    display: grid;
-    grid-template-columns: 28px 1fr;
-    gap: 12px;
-    padding: 14px 16px;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--accent);
-    background: rgba(0,212,255,0.07);
-  }
-  .alert .icon {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--accent);
-    color: var(--surface-bg);
-    display: grid; place-items: center;
-    font: 700 14px/1 var(--font-mono);
-  }
-  .alert b { display: block; margin-bottom: 2px; }
-  .alert span { color: var(--text-muted); font-size: 13px; }
-
-  /* chart placeholder */
-  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .bars {
-    display: grid; grid-template-columns: repeat(8, 1fr); align-items: end;
-    gap: 6px;
-    height: 130px;
-    padding: 6px 6px 0;
-    background: var(--surface-2);
+  /* hero card */
+  .hero-card {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
+    padding: 14px;
+    background: linear-gradient(135deg, rgba(0,212,255,0.10), rgba(233,30,140,0.08));
+    backdrop-filter: blur(8px);
   }
-  .bars .b {
-    border-radius: var(--radius) var(--radius) 0 0;
-    background: linear-gradient(180deg, currentColor, color-mix(in srgb, currentColor 35%, transparent));
-  }
-  .bars .b:nth-child(1) { color: var(--chart-1); height: 62%; }
-  .bars .b:nth-child(2) { color: var(--chart-2); height: 84%; }
-  .bars .b:nth-child(3) { color: var(--chart-3); height: 45%; }
-  .bars .b:nth-child(4) { color: var(--chart-4); height: 71%; }
-  .bars .b:nth-child(5) { color: var(--chart-5); height: 90%; }
-  .bars .b:nth-child(6) { color: var(--chart-6); height: 52%; }
-  .bars .b:nth-child(7) { color: var(--chart-7); height: 68%; }
-  .bars .b:nth-child(8) { color: var(--chart-8); height: 38%; }
+  .hero-card .eyebrow { font: 700 10px/1 var(--font-mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+  .hero-card h4 { margin: 0 0 6px; font: 700 16px/1.2 var(--font-body); }
+  .hero-card p { margin: 0; font-size: 12.5px; color: var(--text-muted); }
 
+  /* modal */
+  .modal-shell { background: var(--surface-bg); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); padding: 0; overflow: hidden; box-shadow: var(--shadow-lg); }
+  .modal-shell header { padding: 10px 12px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; font: 700 12px/1.2 var(--font-body); background: var(--surface-2); }
+  .modal-shell header .x { font-family: var(--font-mono); color: var(--text-dim); cursor: pointer; }
+  .modal-shell .body { padding: 12px; color: var(--text-muted); font-size: 12px; }
+  .modal-shell .actions { display: flex; gap: 6px; padding: 0 12px 12px; justify-content: flex-end; }
+
+  /* drawer (mini) */
+  .drawer { background: var(--surface-bg); border-left: 2px solid var(--accent); border-radius: var(--radius) 0 0 var(--radius); padding: 12px; min-height: 110px; }
+  .drawer header { display: flex; justify-content: space-between; font: 700 12px/1.2 var(--font-body); margin-bottom: 8px; }
+  .drawer p { margin: 0; color: var(--text-muted); font-size: 12px; }
+
+  /* popover */
+  .popover { background: var(--surface-3); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 10px; font-size: 12px; box-shadow: var(--shadow-lg); position: relative; }
+  .popover::before {
+    content: ""; position: absolute; left: 18px; top: -6px; width: 10px; height: 10px;
+    background: var(--surface-3); border-top: 1px solid var(--border-strong); border-left: 1px solid var(--border-strong);
+    transform: rotate(45deg);
+  }
+  .popover b { display: block; color: var(--accent); font-size: 11px; }
+  .tooltip { background: var(--surface-bg); border: 1px solid var(--border-strong); color: var(--text); font: 500 11px/1.2 var(--font-mono); padding: 5px 9px; border-radius: 4px; display: inline-block; }
+
+  /* accordion */
+  .acc { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-2); }
+  .acc .item { padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; font: 600 12px/1.2 var(--font-body); border-bottom: 1px solid var(--border); cursor: pointer; }
+  .acc .item:last-child { border-bottom: 0; }
+  .acc .item .ic { color: var(--accent); font: 700 12px/1 var(--font-mono); }
+  .acc .item.open { color: var(--accent); }
+  .acc .open + .panel { padding: 0 12px 10px; color: var(--text-muted); font-size: 12px; }
+  .acc .panel { display: none; }
+  .acc .item.open ~ .panel.linked { display: block; }
+
+  /* empty state */
+  .empty { text-align: center; padding: 14px 8px; color: var(--text-muted); font-size: 12px; }
+  .empty .ic { font: 700 26px/1 var(--font-mono); color: var(--text-dim); margin-bottom: 6px; }
+  .empty b { display: block; color: var(--text); font: 700 13px/1.3 var(--font-body); margin-bottom: 2px; }
+
+  /* skeleton */
+  .sk { background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%); background-size: 200% 100%; border-radius: var(--radius); animation: shimmer 1.6s linear infinite; }
+  @keyframes shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  .sk.line { height: 10px; }
+  .sk.line.short { width: 60%; }
+  .sk.box { height: 60px; }
+  .sk.circle { width: 32px; height: 32px; border-radius: 50%; }
+
+  /* ------------------------------------------------------------------
+     navigation
+  ------------------------------------------------------------------ */
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+  .tabs .tab { padding: 7px 12px; font: 600 12px/1.2 var(--font-body); color: var(--text-muted); border-bottom: 2px solid transparent; cursor: pointer; }
+  .tabs .tab.on { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .crumbs { display: flex; align-items: center; gap: 4px; font: 500 11.5px/1 var(--font-mono); color: var(--text-muted); }
+  .crumbs .sep { color: var(--text-dim); }
+  .crumbs .here { color: var(--text); font-weight: 700; }
+
+  .pgn { display: inline-flex; gap: 2px; }
+  .pgn span { min-width: 24px; height: 24px; display: grid; place-items: center; border-radius: var(--radius); font: 600 11px/1 var(--font-mono); color: var(--text-muted); background: var(--surface-2); border: 1px solid var(--border); }
+  .pgn span.on { background: var(--accent); color: #06000F; border-color: var(--accent); }
+  .pgn span.dots { background: transparent; border: 0; }
+
+  .stepper { display: flex; align-items: center; gap: 0; }
+  .stepper .st { display: inline-flex; align-items: center; gap: 6px; font: 600 11.5px/1 var(--font-mono); color: var(--text-muted); }
+  .stepper .st .n { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; background: var(--surface-3); color: var(--text-muted); }
+  .stepper .st.done .n { background: var(--success); color: #06000F; }
+  .stepper .st.on .n { background: var(--accent); color: #06000F; }
+  .stepper .st .lbl { color: var(--text); }
+  .stepper .conn { flex: 1; height: 1px; background: var(--border); margin: 0 8px; }
+  .stepper .conn.done { background: var(--success); }
+
+  /* sidebar nav (mini) */
+  .sn { border-right: 1px solid var(--border); background: var(--surface-2); padding: 8px; border-radius: var(--radius); }
+  .sn .grp { font: 700 9.5px/1 var(--font-mono); color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 6px; }
+  .sn .it { padding: 5px 8px; font: 500 12px/1.2 var(--font-body); color: var(--text-muted); border-radius: var(--radius); cursor: pointer; }
+  .sn .it.on { background: var(--surface-4); color: var(--accent); }
+  .sn .it.on::before { content: "▸ "; color: var(--accent); }
+
+  /* navigation rail (icon-only) */
+  .nr { display: inline-flex; flex-direction: column; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); padding: 6px; border-radius: var(--radius); }
+  .nr .ic { width: 32px; height: 32px; border-radius: var(--radius); display: grid; place-items: center; font: 700 12px/1 var(--font-mono); color: var(--text-muted); background: transparent; }
+  .nr .ic.on { background: var(--surface-4); color: var(--accent); box-shadow: inset 2px 0 0 var(--accent); }
+
+  /* command palette */
+  .cmdp { background: var(--surface-3); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 4px; box-shadow: var(--shadow-lg); }
+  .cmdp .input { background: transparent; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; padding: 6px 8px; margin-bottom: 4px; }
+  .cmdp .opt { padding: 5px 8px; font: 500 12px/1.2 var(--font-body); display: flex; justify-content: space-between; border-radius: var(--radius); }
+  .cmdp .opt.on { background: var(--surface-4); color: var(--accent); }
+  .cmdp .opt .kb { color: var(--text-dim); font-family: var(--font-mono); font-size: 10.5px; }
+
+  /* keyboard shortcuts */
+  .kbds { display: grid; gap: 4px; }
+  .kbd-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; font-size: 12px; color: var(--text-muted); }
+  .k { font: 600 10.5px/1 var(--font-mono); padding: 3px 6px; border: 1px solid var(--border); border-radius: 4px; color: var(--text); background: var(--surface-2); display: inline-block; margin-left: 2px; }
+
+  /* page header */
+  .ph { padding: 10px 12px; border-bottom: 1px solid var(--border); background: var(--surface-2); border-radius: var(--radius) var(--radius) 0 0; display: flex; justify-content: space-between; align-items: center; }
+  .ph h5 { margin: 0; font: 700 14px/1.2 var(--font-body); }
+  .ph .sub { font: 500 11px/1 var(--font-mono); color: var(--text-dim); }
+
+  /* toolbar */
+  .toolbar { display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; }
+  .toolbar .sep { width: 1px; align-self: stretch; background: var(--border); margin: 0 2px; }
+
+  /* filter bar */
+  .filter-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-bar .f { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px 3px 10px; border-radius: var(--radius); background: var(--surface-4); color: var(--accent); border: 1px solid var(--border-strong); font: 600 11.5px/1.4 var(--font-mono); }
+  .filter-bar .f .x { color: var(--text-dim); cursor: pointer; }
+  .filter-bar .clear { padding: 3px 8px; color: var(--text-dim); font: 500 11.5px/1.4 var(--font-mono); text-decoration: underline; cursor: pointer; }
+
+  /* ------------------------------------------------------------------
+     data display
+  ------------------------------------------------------------------ */
+  table.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.tbl th { text-align: left; padding: 7px 10px; font: 700 10.5px/1.2 var(--font-mono); color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid var(--border); background: var(--surface-2); }
+  table.tbl td { padding: 7px 10px; border-bottom: 1px dashed var(--border); color: var(--text); }
+  table.tbl tr.hl td { background: var(--surface-4); color: var(--accent); }
+  table.tbl tbody tr:last-child td { border-bottom: 0; }
+
+  /* data list */
+  .dlist { display: grid; gap: 0; }
+  .dlist .row { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--border); }
+  .dlist .row:last-child { border-bottom: 0; }
+  .dlist .row dt { font: 600 11px/1.3 var(--font-mono); color: var(--text-dim); }
+  .dlist .row dd { margin: 0; color: var(--text); font-size: 12.5px; }
+
+  /* tracker grid */
+  .tracker { display: grid; grid-template-columns: repeat(24, 1fr); gap: 2px; }
+  .tracker span { aspect-ratio: 1; border-radius: 2px; background: var(--surface-3); }
+  .tracker span.ok { background: var(--success); }
+  .tracker span.warn { background: var(--warning); }
+  .tracker span.err { background: var(--danger); }
+  .tracker span.miss { background: var(--surface-2); }
+
+  /* activity timeline */
+  .tl { position: relative; padding-left: 18px; }
+  .tl::before { content: ""; position: absolute; left: 7px; top: 4px; bottom: 4px; width: 1px; background: var(--border); }
+  .tl .ev { position: relative; padding: 4px 0 10px; }
+  .tl .ev::before { content: ""; position: absolute; left: -16px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--surface-1); }
+  .tl .ev.ok::before { background: var(--success); }
+  .tl .ev.warn::before { background: var(--warning); }
+  .tl .ev .when { font: 500 10.5px/1 var(--font-mono); color: var(--text-dim); }
+  .tl .ev .what { font: 600 12px/1.3 var(--font-body); color: var(--text); }
+
+  /* comment */
+  .cmt { display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
+  .cmt .body { background: var(--surface-2); border-radius: var(--radius); padding: 8px 10px; border: 1px solid var(--border); font-size: 12px; }
+  .cmt .meta { font: 500 10.5px/1 var(--font-mono); color: var(--text-dim); margin-bottom: 4px; }
+  .cmt .meta b { color: var(--accent); font-weight: 700; }
+
+  /* code block */
+  pre.code { background: var(--surface-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius); padding: 10px 12px; font: 500 11.5px/1.5 var(--font-mono); color: var(--text); margin: 0; overflow: auto; }
+  pre.code .kw { color: var(--accent-2); font-weight: 700; }
+  pre.code .str { color: var(--success); }
+  pre.code .num { color: var(--accent); }
+  pre.code .cmt { color: var(--text-dim); display: block; }
+
+  /* diff view */
+  .diff { background: var(--surface-bg); border: 1px solid var(--border); border-radius: var(--radius); font: 500 11.5px/1.5 var(--font-mono); padding: 8px 10px; }
+  .diff .add { background: rgba(0,255,136,0.12); color: var(--success); }
+  .diff .del { background: rgba(255,59,110,0.12); color: var(--danger); }
+  .diff .ctx { color: var(--text-muted); }
+
+  /* tree view */
+  .tree { font: 500 12px/1.5 var(--font-body); color: var(--text); }
+  .tree .lvl { padding-left: 16px; }
+  .tree .node::before { content: "▾ "; color: var(--accent); }
+  .tree .leaf::before { content: "○ "; color: var(--text-dim); }
+
+  /* kanban */
+  .kb { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .kb .col { background: var(--surface-2); border-radius: var(--radius); padding: 6px; }
+  .kb .col h6 { margin: 0 0 6px; font: 700 9.5px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+  .kb .ti { background: var(--surface-3); border-radius: var(--radius); padding: 6px 8px; font: 600 11px/1.3 var(--font-body); margin-bottom: 4px; border-left: 2px solid var(--accent); }
+  .kb .ti.t2 { border-left-color: var(--accent-2); }
+  .kb .ti.t3 { border-left-color: var(--accent-3); }
+  .kb .ti.t4 { border-left-color: var(--warning); }
+
+  /* notification center (mini) */
+  .nc { background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 8px; min-width: 220px; }
+  .nc .ni { display: grid; grid-template-columns: 6px 1fr auto; gap: 8px; padding: 5px 6px; border-radius: var(--radius); font-size: 12px; }
+  .nc .ni .stripe { width: 4px; height: 100%; background: var(--accent); border-radius: 4px; }
+  .nc .ni.unread { background: var(--surface-3); }
+  .nc .ni .ago { color: var(--text-dim); font: 500 10.5px/1 var(--font-mono); }
+
+  /* attachment */
+  .att { display: inline-flex; align-items: center; gap: 8px; padding: 5px 9px 5px 7px; background: var(--surface-3); border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; }
+  .att .ic { width: 22px; height: 26px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-radius: 3px; color: #06000F; display: grid; place-items: center; font: 700 9px/1 var(--font-mono); }
+  .att .meta { font: 500 10.5px/1 var(--font-mono); color: var(--text-dim); }
+
+  /* unsaved changes bar */
+  .ucb { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: var(--surface-4); border: 1px solid var(--border-strong); border-radius: var(--radius); font-size: 12px; }
+  .ucb .lead { display: inline-flex; align-items: center; gap: 8px; }
+  .ucb .lead::before { content: "●"; color: var(--warning); }
+
+  /* compare toggle */
+  .cmp { display: inline-flex; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: var(--surface-2); font: 600 11px/1 var(--font-mono); }
+  .cmp span { padding: 6px 10px; color: var(--text-muted); border-right: 1px solid var(--border); }
+  .cmp span:last-child { border-right: 0; }
+  .cmp span.on { background: linear-gradient(135deg, var(--accent), var(--accent-bright)); color: #06000F; }
+
+  /* spoiler */
+  .spoil {
+    background: var(--surface-3); color: var(--text-dim);
+    padding: 2px 6px; border-radius: 3px; cursor: pointer; user-select: none;
+  }
+  .spoil.reveal { background: transparent; color: var(--text); }
+
+  /* inline edit */
+  .ie { display: inline-flex; align-items: center; gap: 6px; padding: 3px 6px; background: var(--surface-2); border: 1px dashed var(--border); border-radius: var(--radius); font: 500 12px/1.2 var(--font-mono); color: var(--text); cursor: text; }
+  .ie::after { content: "✎"; color: var(--accent); font-size: 11px; }
+
+  /* form section */
+  .fs { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; background: var(--surface-2); }
+  .fs header { font: 700 11px/1.2 var(--font-mono); color: var(--accent); margin-bottom: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .fs .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* wizard layout */
+  .wz { border: 1px solid var(--border-strong); border-radius: var(--radius-lg); overflow: hidden; }
+  .wz header { padding: 8px 12px; background: var(--surface-3); display: flex; gap: 14px; align-items: center; font-size: 11.5px; }
+  .wz header .wstep { color: var(--text-muted); font-family: var(--font-mono); }
+  .wz header .wstep.on { color: var(--accent); font-weight: 700; }
+  .wz .body { padding: 12px; color: var(--text-muted); font-size: 12px; }
+  .wz footer { padding: 8px 12px; background: var(--surface-2); display: flex; justify-content: space-between; border-top: 1px solid var(--border); }
+
+  /* review step */
+  .rev { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; }
+  .rev .grp { font: 700 10px/1 var(--font-mono); color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px dashed var(--border); margin-bottom: 6px; }
+  .rev .row { display: grid; grid-template-columns: 100px 1fr; padding: 3px 0; gap: 10px; font-size: 12px; }
+  .rev .row dt { color: var(--text-dim); font: 500 11px/1.3 var(--font-mono); }
+  .rev .row dd { margin: 0; color: var(--text); }
+
+  /* bulk action toolbar */
+  .bulk { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--surface-4); border: 1px solid var(--border-strong); border-radius: var(--radius); }
+  .bulk .ct { color: var(--accent); font: 700 11.5px/1 var(--font-mono); }
+  .bulk .actions { display: flex; gap: 6px; margin-left: auto; }
+
+  /* quote reply */
+  .qr { background: var(--surface-2); border-radius: var(--radius); padding: 8px 10px; border-left: 3px solid var(--accent-2); font-size: 12px; }
+  .qr .who { font: 700 10.5px/1 var(--font-mono); color: var(--accent-2); margin-bottom: 4px; }
+  .qr .body { color: var(--text-muted); }
+
+  /* dashboard skeleton */
+  .dashsk { display: grid; gap: 6px; }
+  .dashsk .top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .dashsk .top .sk { height: 48px; }
+
+  /* ------------------------------------------------------------------
+     data viz
+  ------------------------------------------------------------------ */
+  /* bar chart */
+  .bars { display: grid; grid-template-columns: repeat(10, 1fr); align-items: end; gap: 4px; height: 130px; padding: 6px 6px 0; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .bars .b { border-radius: var(--radius) var(--radius) 0 0; background: linear-gradient(180deg, currentColor, color-mix(in srgb, currentColor 35%, transparent)); }
+  .bars.cat .b:nth-child(8n+1) { color: var(--chart-1); }
+  .bars.cat .b:nth-child(8n+2) { color: var(--chart-2); }
+  .bars.cat .b:nth-child(8n+3) { color: var(--chart-3); }
+  .bars.cat .b:nth-child(8n+4) { color: var(--chart-4); }
+  .bars.cat .b:nth-child(8n+5) { color: var(--chart-5); }
+  .bars.cat .b:nth-child(8n+6) { color: var(--chart-6); }
+  .bars.cat .b:nth-child(8n+7) { color: var(--chart-7); }
+  .bars.cat .b:nth-child(8n) { color: var(--chart-8); }
+  .bars.mono .b { color: var(--accent); }
+
+  /* stacked bar chart */
+  .stack { height: 130px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; padding: 6px; background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg); align-items: end; }
+  .stack .col { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; }
+  .stack .col span { display: block; }
+  .stack .col .a { background: var(--chart-1); }
+  .stack .col .b { background: var(--chart-2); }
+  .stack .col .c { background: var(--chart-4); }
+
+  /* line chart */
+  .line-chart { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 6px; height: 130px; position: relative; }
+  .line-chart svg { width: 100%; height: 100%; display: block; }
+  .line-chart .gline { stroke: var(--border); stroke-width: 1; stroke-dasharray: 2 4; }
+  .line-chart .data1 { fill: none; stroke: var(--chart-1); stroke-width: 2; filter: drop-shadow(0 0 4px rgba(0,212,255,0.5)); }
+  .line-chart .data2 { fill: none; stroke: var(--chart-2); stroke-width: 2; filter: drop-shadow(0 0 4px rgba(233,30,140,0.5)); }
+  .line-chart .data3 { fill: none; stroke: var(--chart-5); stroke-width: 2; stroke-dasharray: 4 3; }
+  .line-chart .area { fill: var(--chart-1); opacity: 0.18; }
+  .line-chart .dot { fill: var(--chart-1); }
+
+  /* area chart */
+  .area-chart { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 6px; height: 130px; }
+  .area-chart svg { width: 100%; height: 100%; display: block; }
+  .area-chart .a1 { fill: url(#fadeA); }
+  .area-chart .a2 { fill: url(#fadeB); }
+  .area-chart .l1 { fill: none; stroke: var(--chart-1); stroke-width: 1.5; }
+  .area-chart .l2 { fill: none; stroke: var(--chart-2); stroke-width: 1.5; }
+
+  /* scatter */
+  .scatter { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 6px; height: 130px; position: relative; }
+  .scatter svg { width: 100%; height: 100%; display: block; }
+  .scatter circle.s1 { fill: var(--chart-1); }
+  .scatter circle.s2 { fill: var(--chart-2); }
+  .scatter circle.s3 { fill: var(--chart-5); }
+
+  /* donut */
   .donut-wrap {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 12px;
-    display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: center;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 10px;
+    display: grid; grid-template-columns: 116px 1fr; gap: 12px; align-items: center;
   }
-  .donut {
-    width: 116px; height: 116px; border-radius: 50%;
-    background:
-      conic-gradient(
-        var(--chart-1) 0 32%,
-        var(--chart-2) 32% 56%,
-        var(--chart-3) 56% 72%,
-        var(--chart-4) 72% 86%,
-        var(--chart-5) 86% 100%);
-    -webkit-mask: radial-gradient(circle at center, transparent 38px, #000 39px);
-            mask: radial-gradient(circle at center, transparent 38px, #000 39px);
-    box-shadow: 0 0 32px rgba(0,212,255,0.2), 0 0 64px rgba(233,30,140,0.18);
-  }
-  .legend { display: grid; gap: 6px; font: 500 12px/1.3 var(--font-mono); }
-  .legend .li { display: flex; align-items: center; gap: 8px; }
-  .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
-  .legend .li:nth-child(1) .dot { background: var(--chart-1); }
-  .legend .li:nth-child(2) .dot { background: var(--chart-2); }
-  .legend .li:nth-child(3) .dot { background: var(--chart-3); }
-  .legend .li:nth-child(4) .dot { background: var(--chart-4); }
-  .legend .li:nth-child(5) .dot { background: var(--chart-5); }
+  .donut { width: 96px; height: 96px; border-radius: 50%; background: conic-gradient(var(--chart-1) 0 32%, var(--chart-2) 32% 56%, var(--chart-3) 56% 72%, var(--chart-4) 72% 86%, var(--chart-5) 86% 100%); -webkit-mask: radial-gradient(circle at center, transparent 30px, #000 31px); mask: radial-gradient(circle at center, transparent 30px, #000 31px); box-shadow: 0 0 24px rgba(0,212,255,0.2), 0 0 48px rgba(233,30,140,0.18); }
+  .legend { display: grid; gap: 4px; font: 500 11px/1.3 var(--font-mono); }
+  .legend .li { display: flex; align-items: center; gap: 6px; }
+  .legend .dot { width: 9px; height: 9px; border-radius: 50%; }
 
-  /* variants strip */
-  .variants {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-  }
-  .variant {
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    background: var(--surface-1);
-  }
-  .variant header {
-    padding: 8px 12px;
-    font: 700 11px/1.2 var(--font-mono);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface-2);
-    color: var(--text-muted);
-  }
+  /* pie (full) */
+  .pie { width: 96px; height: 96px; border-radius: 50%; background: conic-gradient(var(--chart-1) 0 42%, var(--chart-2) 42% 70%, var(--chart-5) 70% 100%); box-shadow: 0 0 24px rgba(0,212,255,0.18); }
+
+  /* sparklines (svg) */
+  .spark { display: block; height: 28px; width: 100%; }
+  .spark path { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+  .spark.spark-pink path { stroke: var(--accent-2); }
+  .spark.spark-green path { stroke: var(--success); }
+  .spark.spark-warn path { stroke: var(--warning); }
+  .spark .area { fill: var(--accent); opacity: 0.18; stroke: none; }
+
+  /* heatmap */
+  .heat { display: grid; grid-template-columns: repeat(14, 1fr); gap: 2px; }
+  .heat span { aspect-ratio: 1; border-radius: 2px; }
+  .h0 { background: var(--surface-3); }
+  .h1 { background: rgba(0,212,255,0.15); }
+  .h2 { background: rgba(0,212,255,0.32); }
+  .h3 { background: rgba(0,212,255,0.55); }
+  .h4 { background: rgba(0,212,255,0.78); }
+  .h5 { background: var(--accent); box-shadow: 0 0 6px rgba(0,212,255,0.7); }
+
+  /* palette ramps */
+  .ramp { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; height: 36px; border-radius: var(--radius); overflow: hidden; }
+  .ramp span { font: 600 9.5px/1 var(--font-mono); display: grid; place-items: end center; padding-bottom: 4px; color: rgba(255,255,255,0.85); }
+  .ramp-cyan span:nth-child(1) { background: rgba(0,212,255,0.14); color: var(--text-muted); }
+  .ramp-cyan span:nth-child(2) { background: rgba(0,212,255,0.34); }
+  .ramp-cyan span:nth-child(3) { background: rgba(0,212,255,0.55); }
+  .ramp-cyan span:nth-child(4) { background: rgba(0,212,255,0.78); }
+  .ramp-cyan span:nth-child(5) { background: var(--accent); color: #06000F; }
+  .ramp-pink span:nth-child(1) { background: rgba(233,30,140,0.14); color: var(--text-muted); }
+  .ramp-pink span:nth-child(2) { background: rgba(233,30,140,0.34); }
+  .ramp-pink span:nth-child(3) { background: rgba(233,30,140,0.55); }
+  .ramp-pink span:nth-child(4) { background: rgba(233,30,140,0.78); }
+  .ramp-pink span:nth-child(5) { background: var(--accent-2); color: #fff; }
+  .ramp-div span:nth-child(1) { background: var(--accent-2); color: #fff; }
+  .ramp-div span:nth-child(2) { background: rgba(233,30,140,0.45); }
+  .ramp-div span:nth-child(3) { background: var(--surface-3); color: var(--text-muted); }
+  .ramp-div span:nth-child(4) { background: rgba(0,212,255,0.5); }
+  .ramp-div span:nth-child(5) { background: var(--accent); color: #06000F; }
+  .ramp-cat { display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; height: 36px; border-radius: var(--radius); overflow: hidden; }
+  .ramp-cat span { font: 600 9px/1 var(--font-mono); color: #06000F; display: grid; place-items: center; }
+  .ramp-cat span:nth-child(1) { background: var(--chart-1); }
+  .ramp-cat span:nth-child(2) { background: var(--chart-2); color: #fff; }
+  .ramp-cat span:nth-child(3) { background: var(--chart-3); }
+  .ramp-cat span:nth-child(4) { background: var(--chart-4); color: #fff; }
+  .ramp-cat span:nth-child(5) { background: var(--chart-5); }
+  .ramp-cat span:nth-child(6) { background: var(--chart-6); }
+  .ramp-cat span:nth-child(7) { background: var(--chart-7); }
+  .ramp-cat span:nth-child(8) { background: var(--chart-8); color: #fff; }
+
+  /* KPI tile (richer) */
+  .kpi-tile { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 12px; position: relative; overflow: hidden; }
+  .kpi-tile .lbl { font: 700 10.5px/1 var(--font-mono); color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .kpi-tile .v { font: 800 28px/1.05 var(--font-body); color: var(--text); margin-top: 4px; }
+  .kpi-tile .delta { display: inline-block; margin-top: 4px; font: 600 11px/1 var(--font-mono); color: var(--success); }
+  .kpi-tile .delta.bad { color: var(--danger); }
+  .kpi-tile .sparkbg { position: absolute; left: 0; right: 0; bottom: 0; height: 38px; opacity: 0.4; pointer-events: none; }
+
+  /* stat */
+  .stat-box { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 10px 12px; background: var(--surface-2); display: grid; gap: 2px; }
+  .stat-box .lbl { font: 600 10.5px/1 var(--font-mono); color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .stat-box .val { font: 700 18px/1 var(--font-body); color: var(--accent); }
+  .stat-box .ann { font: 500 11px/1.3 var(--font-body); color: var(--text-muted); }
+
+  /* ------------------------------------------------------------------
+     variants strip
+  ------------------------------------------------------------------ */
+  .variants { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .variant { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; background: var(--surface-1); }
+  .variant header { padding: 8px 12px; font: 700 11px/1.2 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1px solid var(--border); background: var(--surface-2); color: var(--text-muted); }
   .variant .pad { padding: 12px; }
   .variant .v-swatches { display: flex; gap: 4px; height: 26px; }
   .variant .v-swatches span { flex: 1; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); }
   .variant .v-text { margin-top: 8px; font: 600 12.5px/1.3 var(--font-body); }
   .variant .v-meta { font: 500 11px/1.3 var(--font-mono); color: var(--text-dim); margin-top: 2px; }
 
-  /* hermes (canon) */
   .v-hermes .v-swatches { background: #06000F; padding: 2px; }
   .v-hermes .v-swatches span:nth-child(1) { background: #00D4FF; }
   .v-hermes .v-swatches span:nth-child(2) { background: #E91E8C; }
   .v-hermes .v-swatches span:nth-child(3) { background: #FF3EB5; }
   .v-hermes .v-swatches span:nth-child(4) { background: #A66CB8; }
   .v-hermes .v-swatches span:nth-child(5) { background: #00ff88; }
-  /* hermes-light */
   .v-hermes-light { background: #F4ECFA; color: #1F0838; }
   .v-hermes-light header { background: #E5D8F0; color: #1F0838; }
   .v-hermes-light .v-swatches { background: #FFFFFF; padding: 2px; }
@@ -379,7 +859,6 @@
   .v-hermes-light .v-swatches span:nth-child(4) { background: #A66CB8; }
   .v-hermes-light .v-swatches span:nth-child(5) { background: #00B86C; }
   .v-hermes-light .v-meta { color: #5C3D80; }
-  /* hermes-mono */
   .v-hermes-mono { background: #000; color: #E0E0E0; }
   .v-hermes-mono header { background: #1A1A1A; color: #C8C8C8; }
   .v-hermes-mono .v-swatches { background: #0A0A0A; padding: 2px; }
@@ -388,7 +867,6 @@
   .v-hermes-mono .v-swatches span:nth-child(3) { background: #888888; }
   .v-hermes-mono .v-swatches span:nth-child(4) { background: #565656; }
   .v-hermes-mono .v-swatches span:nth-child(5) { background: #2A2A2A; }
-  /* hermes-toxic */
   .v-hermes-toxic { background: #0A0F00; color: #DDE6CC; }
   .v-hermes-toxic header { background: #142400; color: #A0E040; }
   .v-hermes-toxic .v-swatches { background: #0A0F00; padding: 2px; }
@@ -404,7 +882,6 @@
 
   @media (max-width: 880px) {
     .surfaces { grid-template-columns: repeat(2, 1fr); }
-    .chart-row { grid-template-columns: 1fr; }
     .variants { grid-template-columns: 1fr 1fr; }
   }
 </style>
@@ -417,17 +894,21 @@
       <h1>HERMES · void, plasma, signal</h1>
       <p class="tagline">
         Dark surface (#06000F void), plum field, with cyan / pink / coral / plum / acid-green accents.
-        Glassmorphism on surface-4 (translucent purple), Outfit display + JetBrains Mono. Used by HERMES Workshop modules and the HERMES splash custom widget.
+        Outfit display + JetBrains Mono. Every component below is rendered through hermes.css with no per-component overrides — drift the tokens, every element here moves with them.
       </p>
       <div class="hero-meta">
         <span class="chip">data-theme="hermes"</span>
         <span class="chip" data-tone="pink">v0.22.0</span>
         <span class="chip" data-tone="green">Outfit / JetBrains Mono</span>
         <span class="chip" data-tone="amber">8-slot chart palette</span>
-        <span class="chip" data-tone="plum">glass surface-4</span>
+        <span class="chip" data-tone="plum">85 kit-react components</span>
+        <span class="chip" data-tone="coral">4 chart primitives</span>
       </div>
     </header>
 
+    <!-- ============================================================
+         CORE PALETTE
+    ============================================================ -->
     <section>
       <h2>Core palette</h2>
       <p class="sub">Accent slots a component reads (short-alias tokens). Drift these and the rest of the theme moves with you.</p>
@@ -443,6 +924,9 @@
       </div>
     </section>
 
+    <!-- ============================================================
+         SURFACES
+    ============================================================ -->
     <section>
       <h2>Surfaces</h2>
       <p class="sub">Five-level stack. void → deep → purple field → translucent glass. Use surface-4 sparingly for glass overlays.</p>
@@ -455,6 +939,9 @@
       </div>
     </section>
 
+    <!-- ============================================================
+         TYPE
+    ============================================================ -->
     <section>
       <h2>Type</h2>
       <p class="sub">Outfit display and body; JetBrains Mono for code, labels, and metric data.</p>
@@ -468,101 +955,1104 @@
       </div>
     </section>
 
+    <!-- ============================================================
+         DATA VISUALIZATION PILLAR
+    ============================================================ -->
     <section>
-      <h2>Components in situ</h2>
-      <p class="sub">A representative cluster — buttons, input with focus ring, badges, KPI card, alert. Same tokens, every component.</p>
+      <p class="pillar-eyebrow">Pillar · data visualization</p>
+      <h2>Charts, palettes, signals</h2>
+      <p class="sub">4 chart primitives + sparklines + KPI tiles + the 8-slot categorical palette and 5-step sequential / diverging ramps. Same tokens fuel every shape.</p>
 
-      <div class="row" style="margin-bottom: 16px;">
-        <button class="btn btn-primary">Primary action</button>
-        <button class="btn btn-secondary">Secondary</button>
-        <button class="btn btn-ghost">Ghost</button>
-        <button class="btn btn-danger">Danger</button>
-        <input class="input" type="text" placeholder="hermes.input — try focus to see ring" />
-      </div>
-
-      <div class="row" style="margin-bottom: 18px;">
-        <span class="badge info">Info</span>
-        <span class="badge success">In sync</span>
-        <span class="badge warning">Pending</span>
-        <span class="badge danger">Blocked</span>
-        <span class="badge">Default</span>
-      </div>
-
-      <div class="chart-row" style="margin-bottom: 18px;">
-        <div class="card">
-          <h4>Open decision points</h4>
-          <p>Workstreams blocked on next decision</p>
-          <div class="kpi">14 <span class="delta">▲ 3</span></div>
+      <h3 class="subhead">Chart primitives</h3>
+      <div class="grid g2">
+        <div class="sc">
+          <header>BrandedBarChart · categorical <span class="num">/ 10 bars</span></header>
+          <div class="stage">
+            <div class="bars cat" aria-hidden="true">
+              <span class="b" style="height:62%"></span><span class="b" style="height:84%"></span><span class="b" style="height:45%"></span><span class="b" style="height:71%"></span>
+              <span class="b" style="height:90%"></span><span class="b" style="height:52%"></span><span class="b" style="height:68%"></span><span class="b" style="height:38%"></span>
+              <span class="b" style="height:55%"></span><span class="b" style="height:72%"></span>
+            </div>
+          </div>
+          <p class="note">8-slot palette cycles per series. Cyan / Pink / Coral / Plum / Green / Amber-warm / Teal-bright / Rose-dusty.</p>
         </div>
-        <div class="alert">
-          <div class="icon">i</div>
-          <div>
-            <b>Sync matrix refreshed</b>
-            <span>HERMES dashboards rebuilt from the new MIM ontology view; reload to see updated swimlanes.</span>
+
+        <div class="sc">
+          <header>BrandedBarChart · stacked <span class="num">/ 3 series</span></header>
+          <div class="stage">
+            <div class="stack" aria-hidden="true">
+              <div class="col"><span class="a" style="height:18%"></span><span class="b" style="height:34%"></span><span class="c" style="height:18%"></span></div>
+              <div class="col"><span class="a" style="height:28%"></span><span class="b" style="height:24%"></span><span class="c" style="height:32%"></span></div>
+              <div class="col"><span class="a" style="height:22%"></span><span class="b" style="height:48%"></span><span class="c" style="height:18%"></span></div>
+              <div class="col"><span class="a" style="height:36%"></span><span class="b" style="height:30%"></span><span class="c" style="height:22%"></span></div>
+              <div class="col"><span class="a" style="height:30%"></span><span class="b" style="height:42%"></span><span class="c" style="height:26%"></span></div>
+              <div class="col"><span class="a" style="height:42%"></span><span class="b" style="height:32%"></span><span class="c" style="height:18%"></span></div>
+            </div>
+          </div>
+          <p class="note">Three series stacked per category. Slot order: --chart-1, --chart-2, --chart-4.</p>
+        </div>
+
+        <div class="sc">
+          <header>BrandedLineChart · multi-series <span class="num">/ 3 lines</span></header>
+          <div class="stage">
+            <div class="line-chart" aria-hidden="true">
+              <svg viewBox="0 0 320 120" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="fade1" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#00D4FF" stop-opacity="0.5"/>
+                    <stop offset="1" stop-color="#00D4FF" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <line class="gline" x1="0" y1="30" x2="320" y2="30"/>
+                <line class="gline" x1="0" y1="60" x2="320" y2="60"/>
+                <line class="gline" x1="0" y1="90" x2="320" y2="90"/>
+                <path class="area" d="M0,82 L40,68 L80,72 L120,46 L160,52 L200,30 L240,42 L280,24 L320,32 L320,120 L0,120 Z"/>
+                <path class="data1" d="M0,82 L40,68 L80,72 L120,46 L160,52 L200,30 L240,42 L280,24 L320,32"/>
+                <path class="data2" d="M0,96 L40,90 L80,72 L120,82 L160,64 L200,72 L240,58 L280,66 L320,52"/>
+                <path class="data3" d="M0,108 L40,100 L80,94 L120,90 L160,82 L200,78 L240,72 L280,64 L320,58"/>
+                <circle cx="280" cy="24" r="3" class="dot"/>
+              </svg>
+            </div>
+          </div>
+          <p class="note">Glow filter on primary series. Dashed line = forecast band.</p>
+        </div>
+
+        <div class="sc">
+          <header>BrandedDonut <span class="num">/ 5 segments</span></header>
+          <div class="stage">
+            <div class="donut-wrap">
+              <div class="donut" aria-hidden="true"></div>
+              <div class="legend">
+                <div class="li"><span class="dot" style="background:var(--chart-1)"></span>Cyan · 32%</div>
+                <div class="li"><span class="dot" style="background:var(--chart-2)"></span>Pink · 24%</div>
+                <div class="li"><span class="dot" style="background:var(--chart-3)"></span>Coral · 16%</div>
+                <div class="li"><span class="dot" style="background:var(--chart-4)"></span>Plum · 14%</div>
+                <div class="li"><span class="dot" style="background:var(--chart-5)"></span>Green · 14%</div>
+              </div>
+            </div>
+          </div>
+          <p class="note">Conic gradient + radial mask. Outer glow uses accent shadow tokens.</p>
+        </div>
+
+        <div class="sc">
+          <header>Area chart <span class="num">/ 2 series</span></header>
+          <div class="stage">
+            <div class="area-chart" aria-hidden="true">
+              <svg viewBox="0 0 320 120" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="fadeA" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#00D4FF" stop-opacity="0.55"/><stop offset="1" stop-color="#00D4FF" stop-opacity="0"/></linearGradient>
+                  <linearGradient id="fadeB" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#E91E8C" stop-opacity="0.40"/><stop offset="1" stop-color="#E91E8C" stop-opacity="0"/></linearGradient>
+                </defs>
+                <path class="a2" d="M0,90 L40,80 L80,84 L120,66 L160,74 L200,58 L240,68 L280,52 L320,62 L320,120 L0,120 Z"/>
+                <path class="a1" d="M0,72 L40,58 L80,64 L120,42 L160,48 L200,28 L240,36 L280,22 L320,30 L320,120 L0,120 Z"/>
+                <path class="l1" d="M0,72 L40,58 L80,64 L120,42 L160,48 L200,28 L240,36 L280,22 L320,30"/>
+                <path class="l2" d="M0,90 L40,80 L80,84 L120,66 L160,74 L200,58 L240,68 L280,52 L320,62"/>
+              </svg>
+            </div>
+          </div>
+          <p class="note">Stacked fill with gradient fade-to-zero. Two-series envelope for ranges.</p>
+        </div>
+
+        <div class="sc">
+          <header>Scatter / bubble <span class="num">/ 3 clusters</span></header>
+          <div class="stage">
+            <div class="scatter" aria-hidden="true">
+              <svg viewBox="0 0 320 120" preserveAspectRatio="none">
+                <line class="gline" x1="0" y1="30" x2="320" y2="30" stroke="var(--border)" stroke-dasharray="2 4"/>
+                <line class="gline" x1="0" y1="60" x2="320" y2="60" stroke="var(--border)" stroke-dasharray="2 4"/>
+                <line class="gline" x1="0" y1="90" x2="320" y2="90" stroke="var(--border)" stroke-dasharray="2 4"/>
+                <circle class="s1" cx="34" cy="92" r="6" opacity="0.85"/>
+                <circle class="s1" cx="58" cy="78" r="4" opacity="0.85"/>
+                <circle class="s1" cx="86" cy="86" r="8" opacity="0.85"/>
+                <circle class="s2" cx="130" cy="60" r="9" opacity="0.85"/>
+                <circle class="s2" cx="160" cy="46" r="7" opacity="0.85"/>
+                <circle class="s2" cx="188" cy="58" r="11" opacity="0.85"/>
+                <circle class="s3" cx="232" cy="32" r="5" opacity="0.85"/>
+                <circle class="s3" cx="258" cy="28" r="8" opacity="0.85"/>
+                <circle class="s3" cx="288" cy="22" r="6" opacity="0.85"/>
+              </svg>
+            </div>
+          </div>
+          <p class="note">Radius encodes magnitude. Three clusters use chart slots 1 / 2 / 5.</p>
+        </div>
+
+        <div class="sc">
+          <header>Pie <span class="num">/ 3 wedges</span></header>
+          <div class="stage center">
+            <div class="pie" aria-hidden="true"></div>
+            <div class="legend">
+              <div class="li"><span class="dot" style="background:var(--chart-1)"></span>BLUF · 42%</div>
+              <div class="li"><span class="dot" style="background:var(--chart-2)"></span>Body · 28%</div>
+              <div class="li"><span class="dot" style="background:var(--chart-5)"></span>Backmatter · 30%</div>
+            </div>
+          </div>
+          <p class="note">Full-pie variant. Use sparingly — prefer donut for legibility above 4 slices.</p>
+        </div>
+
+        <div class="sc">
+          <header>Heatmap <span class="num">/ 14 × 6 grid</span></header>
+          <div class="stage">
+            <div class="heat" aria-hidden="true">
+              <span class="h0"></span><span class="h0"></span><span class="h1"></span><span class="h1"></span><span class="h0"></span><span class="h2"></span><span class="h3"></span><span class="h2"></span><span class="h4"></span><span class="h3"></span><span class="h5"></span><span class="h4"></span><span class="h3"></span><span class="h2"></span>
+              <span class="h0"></span><span class="h1"></span><span class="h2"></span><span class="h2"></span><span class="h1"></span><span class="h3"></span><span class="h4"></span><span class="h3"></span><span class="h5"></span><span class="h4"></span><span class="h4"></span><span class="h3"></span><span class="h2"></span><span class="h1"></span>
+              <span class="h1"></span><span class="h2"></span><span class="h3"></span><span class="h2"></span><span class="h2"></span><span class="h4"></span><span class="h5"></span><span class="h4"></span><span class="h5"></span><span class="h5"></span><span class="h3"></span><span class="h2"></span><span class="h1"></span><span class="h1"></span>
+              <span class="h0"></span><span class="h1"></span><span class="h1"></span><span class="h2"></span><span class="h3"></span><span class="h2"></span><span class="h3"></span><span class="h2"></span><span class="h4"></span><span class="h3"></span><span class="h2"></span><span class="h1"></span><span class="h1"></span><span class="h0"></span>
+              <span class="h0"></span><span class="h0"></span><span class="h1"></span><span class="h1"></span><span class="h1"></span><span class="h2"></span><span class="h2"></span><span class="h3"></span><span class="h2"></span><span class="h2"></span><span class="h1"></span><span class="h1"></span><span class="h0"></span><span class="h0"></span>
+              <span class="h0"></span><span class="h0"></span><span class="h0"></span><span class="h1"></span><span class="h1"></span><span class="h1"></span><span class="h1"></span><span class="h2"></span><span class="h1"></span><span class="h1"></span><span class="h0"></span><span class="h0"></span><span class="h0"></span><span class="h0"></span>
+            </div>
+          </div>
+          <p class="note">Single-hue sequential cyan ramp. Hotspot at h5 picks up glow.</p>
+        </div>
+      </div>
+
+      <h3 class="subhead">Palette ramps · what charts pull from</h3>
+      <div class="grid g4">
+        <div class="sc"><header>Sequential · Cyan</header><div class="stage"><div class="ramp ramp-cyan"><span>10</span><span>30</span><span>55</span><span>80</span><span>100</span></div></div><p class="note">5-step cyan ramp for ordered magnitudes. Range scale → 100% lands on --accent.</p></div>
+        <div class="sc"><header>Sequential · Pink</header><div class="stage"><div class="ramp ramp-pink"><span>10</span><span>30</span><span>55</span><span>80</span><span>100</span></div></div><p class="note">Companion pink ramp. Use for second metric, or supplemental encoding.</p></div>
+        <div class="sc"><header>Diverging · Pink ↔ Cyan</header><div class="stage"><div class="ramp ramp-div"><span>-2</span><span>-1</span><span>0</span><span>+1</span><span>+2</span></div></div><p class="note">Negative anchor = pink. Neutral = surface-3. Positive = cyan.</p></div>
+        <div class="sc"><header>Categorical · 8 slots</header><div class="stage"><div class="ramp-cat"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span></div></div><p class="note">--chart-1..8 in order. Cycles for &gt;8 categories.</p></div>
+      </div>
+
+      <h3 class="subhead">Sparklines</h3>
+      <div class="grid g4">
+        <div class="sc"><header>Trend · cyan</header><div class="stage">
+          <svg class="spark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
+            <path class="area" d="M0,22 L12,18 L24,20 L36,14 L48,16 L60,9 L72,12 L84,6 L100,8 L100,30 L0,30 Z"/>
+            <path d="M0,22 L12,18 L24,20 L36,14 L48,16 L60,9 L72,12 L84,6 L100,8"/>
+          </svg></div><p class="note">Sparkline + area variant.</p></div>
+        <div class="sc"><header>Trend · pink</header><div class="stage">
+          <svg class="spark spark-pink" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,10 L12,14 L24,12 L36,18 L48,15 L60,21 L72,18 L84,24 L100,22"/>
+          </svg></div><p class="note">Descending trend; use pink/danger for falling KPIs.</p></div>
+        <div class="sc"><header>Bar spark</header><div class="stage">
+          <svg class="spark spark-green" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
+            <g fill="var(--success)">
+              <rect x="0" y="14" width="8" height="16"/><rect x="10" y="20" width="8" height="10"/>
+              <rect x="20" y="10" width="8" height="20"/><rect x="30" y="6" width="8" height="24"/>
+              <rect x="40" y="14" width="8" height="16"/><rect x="50" y="2" width="8" height="28"/>
+              <rect x="60" y="8" width="8" height="22"/><rect x="70" y="4" width="8" height="26"/>
+              <rect x="80" y="0" width="8" height="30"/><rect x="90" y="6" width="8" height="24"/>
+            </g>
+          </svg></div><p class="note">Bar variant. Use for discrete-period series.</p></div>
+        <div class="sc"><header>Step · warning</header><div class="stage">
+          <svg class="spark spark-warn" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0,22 L20,22 L20,16 L40,16 L40,10 L60,10 L60,18 L80,18 L80,8 L100,8" stroke-linejoin="miter"/>
+          </svg></div><p class="note">Step-line for state changes. Amber for caution semantic.</p></div>
+      </div>
+
+      <h3 class="subhead">KPI tiles & stats</h3>
+      <div class="grid g4">
+        <div class="kpi-tile">
+          <div class="lbl">Open decisions</div>
+          <div class="v">14</div>
+          <div class="delta">▲ 3 vs last wk</div>
+          <svg class="sparkbg" viewBox="0 0 200 40" preserveAspectRatio="none">
+            <path d="M0,30 L20,26 L40,28 L60,22 L80,24 L100,16 L120,18 L140,12 L160,14 L180,8 L200,10" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+            <path d="M0,30 L20,26 L40,28 L60,22 L80,24 L100,16 L120,18 L140,12 L160,14 L180,8 L200,10 L200,40 L0,40 Z" fill="var(--accent)" opacity="0.18"/>
+          </svg>
+        </div>
+        <div class="kpi-tile">
+          <div class="lbl">Blocked</div>
+          <div class="v" style="color: var(--danger);">7</div>
+          <div class="delta bad">▼ 2 since Mon</div>
+          <svg class="sparkbg" viewBox="0 0 200 40" preserveAspectRatio="none">
+            <path d="M0,14 L20,12 L40,18 L60,16 L80,22 L100,20 L120,26 L140,22 L160,30 L180,28 L200,32" fill="none" stroke="var(--danger)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="kpi-tile">
+          <div class="lbl">Cycle time</div>
+          <div class="v">4.2d</div>
+          <div class="delta">▲ steady</div>
+          <svg class="sparkbg" viewBox="0 0 200 40" preserveAspectRatio="none">
+            <path d="M0,20 L20,22 L40,18 L60,20 L80,22 L100,20 L120,18 L140,20 L160,22 L180,20 L200,18" fill="none" stroke="var(--accent-2)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="kpi-tile">
+          <div class="lbl">Ontology coverage</div>
+          <div class="v">82<span style="font-size: 16px; color: var(--text-muted);">%</span></div>
+          <div class="delta">▲ +6 pts</div>
+          <svg class="sparkbg" viewBox="0 0 200 40" preserveAspectRatio="none">
+            <path d="M0,30 L20,26 L40,28 L60,22 L80,18 L100,20 L120,14 L140,16 L160,10 L180,8 L200,4" fill="none" stroke="var(--success)" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+      <div class="grid g4" style="margin-top: 8px;">
+        <div class="stat-box"><span class="lbl">DPs open</span><span class="val">14</span><span class="ann">3 added this week</span></div>
+        <div class="stat-box"><span class="lbl">Lanes synced</span><span class="val">11 / 18</span><span class="ann">7 in handoff</span></div>
+        <div class="stat-box"><span class="lbl">Sync gates</span><span class="val">4</span><span class="ann">Phase 0–II</span></div>
+        <div class="stat-box"><span class="lbl">Last refresh</span><span class="val">06:14</span><span class="ann">auto, ETL run #418</span></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         BUILD COMPONENTS PILLAR
+    ============================================================ -->
+    <section>
+      <p class="pillar-eyebrow">Pillar · build components</p>
+      <h2>kit-react surfaced through hermes tokens</h2>
+      <p class="sub">Every component in the kit-react index, grouped by role. Each preview reads only short-alias HERMES tokens — same code, any theme.</p>
+
+      <!-- PRIMITIVES & FORMS -->
+      <h3 class="subhead">Primitives & forms</h3>
+      <div class="grid g3">
+
+        <div class="sc">
+          <header>Button <span class="num">/ 4 variants</span></header>
+          <div class="stage">
+            <div class="row">
+              <button class="btn btn-primary">Primary</button>
+              <button class="btn btn-secondary">Secondary</button>
+              <button class="btn btn-ghost">Ghost</button>
+              <button class="btn btn-danger">Danger</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>ButtonGroup</header>
+          <div class="stage">
+            <div class="bg-group"><span>Day</span><span class="on">Week</span><span>Month</span><span>Quarter</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>SplitButton</header>
+          <div class="stage">
+            <div class="split"><span class="main">Publish</span><span class="drop">▾</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Input</header>
+          <div class="stage">
+            <label class="label">Module name</label>
+            <input class="input" type="text" value="HERMES Sync Matrix" />
+            <div class="help">Visible to anyone with module access.</div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Textarea</header>
+          <div class="stage">
+            <textarea class="textarea">Operational data team reference. Pair with kit-react.</textarea>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Select</header>
+          <div class="stage">
+            <div class="combo"><span>Phase II — Pause</span><span class="caret">▾</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Combobox <span class="num">/ open</span></header>
+          <div class="stage">
+            <div class="combo"><span>Sync gate ▎</span><span class="caret">▾</span></div>
+            <div class="combo-list">
+              <div class="opt"><span>Sync gate · Decision Brief</span><span class="kb">⏎</span></div>
+              <div class="opt on"><span>Sync gate · Logistics Tie-in</span><span class="kb">⏎</span></div>
+              <div class="opt"><span>Sync gate · Risk Touch</span><span class="kb">⏎</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Checkbox</header>
+          <div class="stage">
+            <label class="cb"><span class="cb-box on"></span>Auto-refresh dashboards</label>
+            <label class="cb"><span class="cb-box"></span>Send daily digest</label>
+            <label class="cb"><span class="cb-box on"></span>Notify on phase change</label>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>RadioGroup</header>
+          <div class="stage">
+            <label class="rb"><span class="rb-box on"></span>Operator view</label>
+            <label class="rb"><span class="rb-box"></span>Executive view</label>
+            <label class="rb"><span class="rb-box"></span>Analyst view</label>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Switch</header>
+          <div class="stage">
+            <div class="row">
+              <span class="sw-track on"><span class="thumb"></span></span><span style="font-size:12px;color:var(--text-muted)">Glow effects</span>
+            </div>
+            <div class="row">
+              <span class="sw-track"><span class="thumb"></span></span><span style="font-size:12px;color:var(--text-muted)">Reduced motion</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>NumberInput</header>
+          <div class="stage">
+            <div class="num-input"><button>−</button><span class="val">42</span><button>+</button></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>RangeSlider</header>
+          <div class="stage">
+            <div class="range">
+              <div class="rail"></div>
+              <div class="fill" style="width: 62%;"></div>
+              <div class="thumb" style="left: 62%;"></div>
+            </div>
+            <div class="help">Coverage threshold · 62%</div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>SegmentedControl</header>
+          <div class="stage">
+            <div class="seg"><span>Auto</span><span class="on">Hermes</span><span>USAREUR</span><span>NATO</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>ToggleGroup</header>
+          <div class="stage">
+            <div class="tg"><button>B</button><button class="on">I</button><button>U</button><button>S</button></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>SearchField</header>
+          <div class="stage">
+            <div class="search"><span class="glyph">⌕</span><input placeholder="search modules, widgets, lanes…" /><span class="kbd">/</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>TagInput</header>
+          <div class="stage">
+            <div class="row">
+              <span class="tag tag-acc">phase-II<span class="x">×</span></span>
+              <span class="tag">sync-matrix<span class="x">×</span></span>
+              <span class="tag">decision-pt<span class="x">×</span></span>
+              <span class="tag" style="opacity:0.5">add…</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>DatePicker</header>
+          <div class="stage">
+            <div class="mini-cal">
+              <div class="hd"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+              <div class="days">
+                <span class="day dim">28</span><span class="day dim">29</span><span class="day dim">30</span>
+                <span class="day">01</span><span class="day">02</span><span class="day">03</span><span class="day">04</span>
+                <span class="day">05</span><span class="day">06</span><span class="day">07</span><span class="day t">08</span>
+                <span class="day">09</span><span class="day">10</span><span class="day">11</span>
+                <span class="day">12</span><span class="day">13</span><span class="day">14</span><span class="day sel">15</span>
+                <span class="day">16</span><span class="day">17</span><span class="day">18</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>DateRangePicker</header>
+          <div class="stage">
+            <div class="mini-cal">
+              <div class="hd"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+              <div class="days">
+                <span class="day">05</span><span class="day">06</span><span class="day">07</span>
+                <span class="day sel">08</span><span class="day in-range">09</span><span class="day in-range">10</span><span class="day in-range">11</span>
+                <span class="day in-range">12</span><span class="day in-range">13</span><span class="day in-range">14</span><span class="day sel">15</span>
+                <span class="day">16</span><span class="day">17</span><span class="day">18</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>TimePicker</header>
+          <div class="stage">
+            <div class="time-picker"><span>09</span><span class="colon">:</span><span>14</span><span class="colon">:</span><span>02</span><span class="ap">CET</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>ColorPicker</header>
+          <div class="stage">
+            <div class="cpick">
+              <span style="background:#00D4FF" class="on"></span><span style="background:#E91E8C"></span><span style="background:#FF3EB5"></span><span style="background:#E8765C"></span>
+              <span style="background:#A66CB8"></span><span style="background:#00ff88"></span><span style="background:#fbbf24"></span><span style="background:#ff3b6e"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>FileUpload</header>
+          <div class="stage">
+            <div class="upload">Drop files here or <b>browse</b><div class="meta">CSV · XLSX · PDF up to 50 MB</div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Attachment</header>
+          <div class="stage">
+            <div class="row">
+              <span class="att"><span class="ic">PDF</span><span><b>BLUF-sync-matrix.pdf</b><div class="meta">2.4 MB</div></span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>CompareToggle</header>
+          <div class="stage">
+            <div class="cmp"><span>Single</span><span class="on">Compare A/B</span><span>Multi</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>InlineEdit</header>
+          <div class="stage">
+            <span class="ie">HERMES Sync Matrix v2</span>
           </div>
         </div>
       </div>
 
-      <div class="chart-row">
-        <div>
-          <div class="bars" aria-hidden="true">
-            <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
-            <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+      <!-- STATUS & FEEDBACK -->
+      <h3 class="subhead">Status & feedback</h3>
+      <div class="grid g3">
+
+        <div class="sc">
+          <header>Badge <span class="num">/ 4 severities</span></header>
+          <div class="stage">
+            <div class="row">
+              <span class="badge info">Info</span><span class="badge success">In sync</span><span class="badge warning">Pending</span><span class="badge danger">Blocked</span><span class="badge">Default</span>
+            </div>
           </div>
-          <p class="sub" style="margin: 8px 0 0;">Bar chart — 8 chart slots (<code>--chart-1..8</code>)</p>
         </div>
-        <div class="donut-wrap">
-          <div class="donut" aria-hidden="true"></div>
-          <div class="legend">
-            <div class="li"><span class="dot"></span>Cyan · 32%</div>
-            <div class="li"><span class="dot"></span>Pink · 24%</div>
-            <div class="li"><span class="dot"></span>Coral · 16%</div>
-            <div class="li"><span class="dot"></span>Plum · 14%</div>
-            <div class="li"><span class="dot"></span>Green · 14%</div>
+
+        <div class="sc">
+          <header>BadgeCount · BadgeDot</header>
+          <div class="stage">
+            <div class="row" style="align-items: center;">
+              <span style="position: relative; padding-right: 14px; color: var(--text);">Inbox <span class="badge-count">3</span></span>
+              <span class="badge-dot"></span><span style="font-size:12px;color:var(--text-muted)">Active</span>
+              <span class="badge-dot warn"></span><span style="font-size:12px;color:var(--text-muted)">Pending</span>
+              <span class="badge-dot danger"></span><span style="font-size:12px;color:var(--text-muted)">Down</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>StatusPill · StatusRow</header>
+          <div class="stage">
+            <div class="row">
+              <span class="pill ok">In sync</span>
+              <span class="pill warn">Pending</span>
+              <span class="pill err">Blocked</span>
+              <span class="pill">Backlog</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>StatusIndicator · PulseIndicator</header>
+          <div class="stage">
+            <div class="row">
+              <span class="pulse"></span><span style="font-size:12px;color:var(--text-muted)">Live · 12 active sessions</span>
+            </div>
+            <div class="row">
+              <span class="badge-dot warn"></span><span style="font-size:12px;color:var(--text-muted)">Degraded · backfill running</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Alert · info</header>
+          <div class="stage">
+            <div class="alert"><span class="ico">i</span><div><b>Sync matrix refreshed</b><span>Dashboards rebuilt from new MIM view; reload to pick up swimlanes.</span></div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Alert · warning</header>
+          <div class="stage">
+            <div class="alert warning"><span class="ico">!</span><div><b>Coverage below threshold</b><span>3 lanes have no decision-point owner. Assign in Sync Matrix.</span></div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Alert · danger</header>
+          <div class="stage">
+            <div class="alert danger"><span class="ico">×</span><div><b>Pipeline failed</b><span>Last ETL run aborted at validate step. See Logs → batch #418.</span></div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Alert · success</header>
+          <div class="stage">
+            <div class="alert success"><span class="ico">✓</span><div><b>All lanes synced</b><span>Phase 0–II sync gates green. Ready for ARB review.</span></div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Toast</header>
+          <div class="stage">
+            <div class="toast"><span class="stripe"></span><div><b>Phase advanced</b><div style="color:var(--text-muted);font-size:11px">Now Phase II · Pause</div></div><span class="ago">2s</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Banner</header>
+          <div class="stage">
+            <div class="banner"><span class="lead">NEW</span><span>Hermes-toxic variant shipped — try data-theme="hermes-toxic".</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Callout</header>
+          <div class="stage">
+            <div class="alert" style="border-color:var(--accent-2); background: rgba(233,30,140,0.07);">
+              <span class="ico" style="background:var(--accent-2);">★</span>
+              <div><b>Operator tip</b><span>Press <span class="k">⌘ K</span> to swap themes without leaving the page.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Progress · linear</header>
+          <div class="stage">
+            <div class="prog"><div class="bar" style="width:62%"></div></div>
+            <div class="help">Ontology coverage · 62%</div>
+            <div class="prog"><div class="bar" style="width:88%; background: linear-gradient(90deg, var(--success), var(--accent));"></div></div>
+            <div class="help">Lanes synced · 88%</div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Progress · circular</header>
+          <div class="stage center">
+            <div class="prog-circle"><span class="pct">68%</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Spinner</header>
+          <div class="stage center"><div class="spin"></div></div>
+        </div>
+
+        <div class="sc">
+          <header>Avatar · AvatarGroup</header>
+          <div class="stage">
+            <div class="row">
+              <span class="av">DH</span>
+              <span class="av b2">AK</span>
+              <span class="av b5">SR</span>
+              <span class="av-group">
+                <span class="av">DH</span><span class="av b2">AK</span><span class="av b5">SR</span><span class="av b3">MJ</span><span class="av av-more">+4</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>UnsavedChangesBar</header>
+          <div class="stage">
+            <div class="ucb"><span class="lead">2 unsaved fields</span><div class="row"><button class="btn btn-ghost btn-sm">Discard</button><button class="btn btn-primary btn-sm">Save</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SURFACES -->
+      <h3 class="subhead">Surfaces / containers</h3>
+      <div class="grid g3">
+
+        <div class="sc">
+          <header>Card</header>
+          <div class="stage">
+            <div class="card"><h4>Open decisions</h4><p>Across all lanes</p><div class="kpi">14 <span class="delta">▲ 3</span></div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>HeroCard</header>
+          <div class="stage">
+            <div class="hero-card"><div class="eyebrow">module</div><h4>HERMES Sync Matrix</h4><p>18 lanes, 4 sync gates, Phase 0–II coverage. Refreshed every 6h.</p></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Modal</header>
+          <div class="stage">
+            <div class="modal-shell">
+              <header><span>Advance to Phase III?</span><span class="x">×</span></header>
+              <div class="body">All sync gates for Phase II must be green. 2 lanes are still pending.</div>
+              <div class="actions"><button class="btn btn-ghost btn-sm">Cancel</button><button class="btn btn-primary btn-sm">Advance</button></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Drawer</header>
+          <div class="stage">
+            <div class="drawer">
+              <header><span>Decision point · DP-014</span><span style="color:var(--text-dim)">×</span></header>
+              <p>Owner: G3. Due: Friday. Linked to Sync Matrix lane "Logistics".</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Popover</header>
+          <div class="stage center">
+            <div class="popover"><b>Filter applied</b>3 lanes hidden by phase=II</div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Tooltip</header>
+          <div class="stage center"><span class="tooltip">Cmd+K · Swap theme</span></div>
+        </div>
+
+        <div class="sc">
+          <header>Accordion</header>
+          <div class="stage">
+            <div class="acc">
+              <div class="item open">Sync gate 0 · Boundary set <span class="ic">−</span></div>
+              <div class="panel linked">Confirms phase scope, lane owners, MIM types in use.</div>
+              <div class="item">Sync gate 1 · Decision Brief <span class="ic">+</span></div>
+              <div class="item">Sync gate 2 · Logistics Tie-in <span class="ic">+</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>EmptyState</header>
+          <div class="stage center">
+            <div class="empty"><div class="ic">◇</div><b>No blocked items</b>All lanes synced for Phase II.</div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Skeleton</header>
+          <div class="stage">
+            <div class="row"><div class="sk circle"></div><div style="flex:1;display:grid;gap:6px;"><div class="sk line"></div><div class="sk line short"></div></div></div>
+            <div class="sk box"></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>DashboardSkeleton</header>
+          <div class="stage">
+            <div class="dashsk"><div class="top"><div class="sk"></div><div class="sk"></div><div class="sk"></div><div class="sk"></div></div><div class="sk box"></div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Spoiler</header>
+          <div class="stage">
+            <div style="font-size:12.5px;color:var(--text-muted);">Result is <span class="spoil">redacted</span> until reviewed; click to reveal.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NAVIGATION -->
+      <h3 class="subhead">Navigation / shell</h3>
+      <div class="grid g3">
+
+        <div class="sc">
+          <header>Tabs</header>
+          <div class="stage">
+            <div class="tabs"><span class="tab on">Overview</span><span class="tab">Lanes</span><span class="tab">Decisions</span><span class="tab">Audit</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Breadcrumb</header>
+          <div class="stage">
+            <div class="crumbs"><span>Workshop</span><span class="sep">/</span><span>HERMES</span><span class="sep">/</span><span>Sync Matrix</span><span class="sep">/</span><span class="here">v2</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Pagination</header>
+          <div class="stage">
+            <div class="pgn"><span>‹</span><span>1</span><span class="on">2</span><span>3</span><span>4</span><span class="dots">…</span><span>12</span><span>›</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Stepper</header>
+          <div class="stage">
+            <div class="stepper">
+              <div class="st done"><span class="n">✓</span><span class="lbl">Frame</span></div>
+              <div class="conn done"></div>
+              <div class="st on"><span class="n">2</span><span class="lbl">Validate</span></div>
+              <div class="conn"></div>
+              <div class="st"><span class="n">3</span><span class="lbl">Wrap</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Nav</header>
+          <div class="stage">
+            <div class="tabs" style="border-bottom:0;"><span class="tab on">Overview</span><span class="tab">Lanes</span><span class="tab">Decisions</span></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>SidebarNav</header>
+          <div class="stage">
+            <div class="sn">
+              <div class="grp">Phase 0</div>
+              <div class="it">Frame</div>
+              <div class="it">Discover users</div>
+              <div class="grp">Phase II</div>
+              <div class="it on">Sync gate · DB</div>
+              <div class="it">Sync gate · Logistics</div>
+              <div class="it">Sync gate · Risk</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>NavigationRail</header>
+          <div class="stage">
+            <div class="nr">
+              <span class="ic on">▦</span><span class="ic">≡</span><span class="ic">◑</span><span class="ic">◇</span><span class="ic">⌬</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>PageHeader</header>
+          <div class="stage">
+            <div class="ph"><div><h5>HERMES Sync Matrix v2</h5><div class="sub">module · workshop · last refresh 06:14</div></div><div class="row"><button class="btn btn-ghost btn-sm">Filter</button><button class="btn btn-primary btn-sm">+ Decision</button></div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>CommandPalette</header>
+          <div class="stage">
+            <div class="cmdp">
+              <input class="input" placeholder="jump to module, lane, decision…" />
+              <div class="opt on"><span>Go to Sync Matrix</span><span class="kb">⏎</span></div>
+              <div class="opt"><span>Open Decision DP-014</span><span class="kb">⌘D</span></div>
+              <div class="opt"><span>Swap theme</span><span class="kb">⌘K</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>KeyboardShortcuts</header>
+          <div class="stage">
+            <div class="kbds">
+              <div class="kbd-row"><span>Jump palette</span><div><span class="k">⌘</span><span class="k">J</span></div></div>
+              <div class="kbd-row"><span>Swap theme</span><div><span class="k">⌘</span><span class="k">K</span></div></div>
+              <div class="kbd-row"><span>Focus filter</span><div><span class="k">/</span></div></div>
+              <div class="kbd-row"><span>Print cheatsheet</span><div><span class="k">⌘</span><span class="k">⇧</span><span class="k">P</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Toolbar</header>
+          <div class="stage">
+            <div class="toolbar">
+              <button class="btn btn-ghost btn-sm">⎘ Copy</button>
+              <button class="btn btn-ghost btn-sm">✎ Edit</button>
+              <span class="sep"></span>
+              <button class="btn btn-ghost btn-sm">⇡ Sort</button>
+              <button class="btn btn-ghost btn-sm">⛶ Filter</button>
+              <span class="sep"></span>
+              <button class="btn btn-ghost btn-sm">⋯</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>FilterBar</header>
+          <div class="stage">
+            <div class="filter-bar">
+              <span class="f">phase: II<span class="x">×</span></span>
+              <span class="f">owner: G3<span class="x">×</span></span>
+              <span class="f">status: open<span class="x">×</span></span>
+              <span class="clear">Clear all</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>BulkActionToolbar</header>
+          <div class="stage">
+            <div class="bulk"><span class="ct">3 selected</span><div class="actions"><button class="btn btn-ghost btn-sm">Reassign</button><button class="btn btn-ghost btn-sm">Tag</button><button class="btn btn-danger btn-sm">Delete</button></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATA DISPLAY -->
+      <h3 class="subhead">Data display</h3>
+      <div class="grid g2">
+
+        <div class="sc">
+          <header>Table</header>
+          <div class="stage">
+            <table class="tbl">
+              <thead><tr><th>Lane</th><th>Phase</th><th>Owner</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Sync · Decision Brief</td><td>II</td><td>G3</td><td><span class="pill ok">In sync</span></td></tr>
+                <tr class="hl"><td>Sync · Logistics</td><td>II</td><td>G4</td><td><span class="pill warn">Pending</span></td></tr>
+                <tr><td>Sync · Risk</td><td>II</td><td>SJA</td><td><span class="pill ok">In sync</span></td></tr>
+                <tr><td>Sync · Comms</td><td>III</td><td>G6</td><td><span class="pill err">Blocked</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>TableGroupedRows · TableColumnMenu · TableCellEditor</header>
+          <div class="stage">
+            <table class="tbl">
+              <thead><tr><th>Phase ▾</th><th>Lane</th><th>Owner</th><th style="text-align:right;color:var(--accent)">↕ Status ⋯</th></tr></thead>
+              <tbody>
+                <tr><td colspan="4" style="background:var(--surface-3); font:700 10.5px/1 var(--font-mono); color:var(--accent); padding:5px 10px;">Phase II · 3 rows</td></tr>
+                <tr><td></td><td>Decision Brief</td><td>G3</td><td><span class="ie">In sync</span></td></tr>
+                <tr><td></td><td>Logistics</td><td>G4</td><td><span class="ie">Pending</span></td></tr>
+                <tr><td colspan="4" style="background:var(--surface-3); font:700 10.5px/1 var(--font-mono); color:var(--accent); padding:5px 10px;">Phase III · 1 row</td></tr>
+                <tr><td></td><td>Comms</td><td>G6</td><td><span class="ie">Blocked</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>DataList</header>
+          <div class="stage">
+            <dl class="dlist">
+              <div class="row"><dt>Module</dt><dd>HERMES Sync Matrix v2</dd></div>
+              <div class="row"><dt>Phase</dt><dd>II · Pause</dd></div>
+              <div class="row"><dt>Lanes</dt><dd>18 (7 pending)</dd></div>
+              <div class="row"><dt>Owner</dt><dd>G3 / G4 / SJA</dd></div>
+              <div class="row"><dt>Last refresh</dt><dd>06:14 · ETL #418</dd></div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Tracker <span class="num">/ 96 cells</span></header>
+          <div class="stage">
+            <div class="tracker">
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="err"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="err"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="miss"></span><span class="miss"></span><span class="miss"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+              <span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="err"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span><span class="warn"></span><span class="ok"></span><span class="ok"></span><span class="ok"></span>
+            </div>
+            <p class="note">Each cell = a sync gate per day across 8 lanes. miss / ok / warn / err.</p>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>ActivityTimeline</header>
+          <div class="stage">
+            <div class="tl">
+              <div class="ev ok"><div class="when">06:14</div><div class="what">ETL #418 finished · 3 lanes refreshed</div></div>
+              <div class="ev"><div class="when">05:52</div><div class="what">DP-014 reassigned to G3</div></div>
+              <div class="ev warn"><div class="when">05:30</div><div class="what">Lane "Logistics" entered pending</div></div>
+              <div class="ev"><div class="when">04:11</div><div class="what">Sync gate 0 closed for Phase II</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Comment · QuoteReply</header>
+          <div class="stage">
+            <div class="cmt">
+              <span class="av">DH</span>
+              <div class="body">
+                <div class="meta"><b>Dale</b> · 5 min ago</div>
+                <div>The new heatmap reads better than the categorical bars. Going with that on the cheatsheet.</div>
+              </div>
+            </div>
+            <div class="qr"><div class="who">Re: Andrew</div><div class="body">"Donut + sparkline KPIs are the right combo for the exec view."</div></div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>CodeBlock</header>
+          <div class="stage">
+            <pre class="code"><span class="cmt">// hermes — set theme + read accent</span>
+document.documentElement.setAttribute(<span class="str">"data-theme"</span>, <span class="str">"hermes"</span>);
+<span class="kw">const</span> accent = getComputedStyle(document.documentElement)
+  .getPropertyValue(<span class="str">"--accent"</span>); <span class="cmt">// "#00D4FF"</span></pre>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>DiffView</header>
+          <div class="stage">
+            <div class="diff">
+              <div class="ctx">--- tokens/hermes.json (a)</div>
+              <div class="ctx">+++ tokens/hermes.json (b)</div>
+              <div class="del">- "color.accent": "{color.purple-bright}"</div>
+              <div class="add">+ "color.accent": "{color.cyan}"</div>
+              <div class="ctx">  "color.accent-2": "{color.pink}"</div>
+              <div class="del">- "color.danger": "#ff5577"</div>
+              <div class="add">+ "color.danger": "#ff3b6e"</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>TreeView</header>
+          <div class="stage">
+            <div class="tree">
+              <div class="node">brand-kit</div>
+              <div class="lvl">
+                <div class="node">tokens/</div>
+                <div class="lvl">
+                  <div class="leaf">hermes.json</div>
+                  <div class="leaf">hermes-light.json</div>
+                  <div class="leaf">usareur.json</div>
+                </div>
+                <div class="node">deliverables/</div>
+                <div class="lvl">
+                  <div class="leaf">kit-html/</div>
+                  <div class="leaf">kit-react/</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>Tag</header>
+          <div class="stage">
+            <div class="row">
+              <span class="tag tag-acc">canonical</span><span class="tag">draft</span><span class="tag">v0.22</span><span class="tag">hermes</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>KanbanBoard</header>
+          <div class="stage">
+            <div class="kb">
+              <div class="col"><h6>To do</h6><div class="ti">Wire DP-014</div><div class="ti t2">Refactor lane 7</div></div>
+              <div class="col"><h6>In progress</h6><div class="ti t3">ETL coverage gap</div></div>
+              <div class="col"><h6>Done</h6><div class="ti t4">Heatmap on cheatsheet</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>NotificationCenter</header>
+          <div class="stage">
+            <div class="nc">
+              <div class="ni unread"><span class="stripe"></span><div><b>Lane "Logistics" pending</b><div style="color:var(--text-muted);font-size:11px">DP-014 needs assignment</div></div><span class="ago">2m</span></div>
+              <div class="ni"><span class="stripe" style="background: var(--success);"></span><div><b>Phase II green</b><div style="color:var(--text-muted);font-size:11px">All sync gates closed</div></div><span class="ago">1h</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPOSITION / FLOWS -->
+      <h3 class="subhead">Composition / flows</h3>
+      <div class="grid g2">
+
+        <div class="sc">
+          <header>FormSection</header>
+          <div class="stage">
+            <div class="fs">
+              <header>Module metadata</header>
+              <div class="grid">
+                <div><label class="label">Name</label><input class="input" value="HERMES Sync Matrix" /></div>
+                <div><label class="label">Phase</label><div class="combo"><span>II — Pause</span><span class="caret">▾</span></div></div>
+                <div><label class="label">Owner</label><input class="input" value="G3" /></div>
+                <div><label class="label">Refresh</label><div class="combo"><span>6h</span><span class="caret">▾</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>WizardLayout · WizardStep</header>
+          <div class="stage">
+            <div class="wz">
+              <header>
+                <span class="wstep">1 · Frame</span>
+                <span class="wstep on">2 · Validate</span>
+                <span class="wstep">3 · Wrap</span>
+                <span class="wstep">4 · Review</span>
+              </header>
+              <div class="body">Confirm every UserStory resolves to an ObjectType/Action/Property in MIM IR before generating the WidgetSpec.</div>
+              <footer><button class="btn btn-ghost btn-sm">← Back</button><button class="btn btn-primary btn-sm">Next →</button></footer>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>ReviewStep</header>
+          <div class="stage">
+            <div class="rev">
+              <div class="grp">Module metadata</div>
+              <dl><div class="row"><dt>Name</dt><dd>HERMES Sync Matrix v2</dd></div><div class="row"><dt>Phase</dt><dd>II · Pause</dd></div><div class="row"><dt>Owner</dt><dd>G3</dd></div></dl>
+              <div class="grp" style="margin-top: 10px;">Acceptance gate</div>
+              <dl><div class="row"><dt>UserStory cover</dt><dd>22 / 22 ✓</dd></div><div class="row"><dt>PECS</dt><dd>all ObjectTypes implement [interface]</dd></div><div class="row"><dt>Trace</dt><dd>resolves in CDA + MIM IR</dd></div></dl>
+            </div>
+          </div>
+        </div>
+
+        <div class="sc">
+          <header>InlineEdit + FilterBar + BulkActionToolbar</header>
+          <div class="stage">
+            <div class="row">
+              <span class="ie">Sync Matrix v2</span>
+            </div>
+            <div class="filter-bar">
+              <span class="f">phase: II<span class="x">×</span></span>
+              <span class="f">owner: G3<span class="x">×</span></span>
+            </div>
+            <div class="bulk"><span class="ct">3 selected</span><div class="actions"><button class="btn btn-ghost btn-sm">Reassign</button><button class="btn btn-danger btn-sm">Delete</button></div></div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ============================================================
+         VARIANTS
+    ============================================================ -->
     <section>
       <h2>Variants</h2>
-      <p class="sub">The HERMES theme ships in four tokens files. All read the same component CSS; only the values change.</p>
+      <p class="sub">HERMES ships in four tokens files. Same component CSS, only values change.</p>
       <div class="variants">
         <div class="variant v-hermes">
           <header>hermes · canon</header>
-          <div class="pad">
-            <div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div>
-            <div class="v-text">Void / cyan / pink / coral / plum / green</div>
-            <div class="v-meta">data-theme="hermes"</div>
-          </div>
+          <div class="pad"><div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div><div class="v-text">Void / cyan / pink / coral / plum / green</div><div class="v-meta">data-theme="hermes"</div></div>
         </div>
         <div class="variant v-hermes-light">
           <header>hermes-light</header>
-          <div class="pad">
-            <div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div>
-            <div class="v-text">Lavender field, deep purple ink</div>
-            <div class="v-meta">data-theme="hermes-light"</div>
-          </div>
+          <div class="pad"><div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div><div class="v-text">Lavender field, deep purple ink</div><div class="v-meta">data-theme="hermes-light"</div></div>
         </div>
         <div class="variant v-hermes-mono">
           <header>hermes-mono</header>
-          <div class="pad">
-            <div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div>
-            <div class="v-text">Pure grayscale, identical ramps</div>
-            <div class="v-meta">data-theme="hermes-mono"</div>
-          </div>
+          <div class="pad"><div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div><div class="v-text">Pure grayscale, identical ramps</div><div class="v-meta">data-theme="hermes-mono"</div></div>
         </div>
         <div class="variant v-hermes-toxic">
           <header>hermes-toxic</header>
-          <div class="pad">
-            <div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div>
-            <div class="v-text">Acid green field, signal-yellow accent</div>
-            <div class="v-meta">data-theme="hermes-toxic"</div>
-          </div>
+          <div class="pad"><div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div><div class="v-text">Acid green field, signal-yellow accent</div><div class="v-meta">data-theme="hermes-toxic"</div></div>
         </div>
       </div>
     </section>
 
+    <!-- ============================================================
+         WHERE IT LIVES
+    ============================================================ -->
     <section>
       <h2>Where it lives</h2>
       <p class="sub">Single source of truth and where consumers pick it up.</p>
@@ -571,12 +2061,13 @@
         <li><span class="mono">scripts/build-tokens.ts</span> — generator. Reads every <code>tokens/themes/*.json</code>, writes <code>dist/&lt;name&gt;.css</code>.</li>
         <li><span class="mono">dist/hermes.css</span> — generated CSS. <strong>This page consumes it.</strong></li>
         <li><span class="mono">deliverables/kit-react/src/tokens/hermes.css</span> — vendor copy for React consumers.</li>
-        <li><span class="mono">~/projects/odt/architecture/cda/apps/shared/hermes-theme.css</span> — original donor (kept for cross-app reference).</li>
+        <li><span class="mono">deliverables/kit-react/src/components/*.tsx</span> — 85 component .tsx files, 160 exports.</li>
+        <li><span class="mono">deliverables/kit-react/src/charts/*.tsx</span> — 4 chart primitives (BrandedBarChart, BrandedDonut, BrandedLineChart, BrandedPlot).</li>
       </ul>
     </section>
 
     <footer>
-      brand-kit v0.22.0 · USAREUR-AF ODT · HERMES picture overview · open with <code>xdg-open HERMES-OVERVIEW.html</code>
+      brand-kit v0.22.0 · USAREUR-AF ODT · HERMES picture overview · <a href="https://usareur-af-odt.github.io/hermestheme/">usareur-af-odt.github.io/hermestheme</a>
     </footer>
   </div>
 </body>
