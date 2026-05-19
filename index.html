@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en" data-theme="hermes">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HERMES theme · brand-kit picture overview</title>
+<link rel="stylesheet" href="dist/hermes.css" />
+<style>
+  /* page chrome (theme-agnostic shell) */
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(ellipse at 20% -10%, rgba(123,47,190,0.30) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 10%, rgba(0,212,255,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 110%, rgba(233,30,140,0.22) 0%, transparent 55%),
+      var(--surface-bg);
+    color: var(--text);
+    font: 14px/1.55 var(--font-body, 'Outfit', system-ui, sans-serif);
+    min-height: 100vh;
+    padding: 32px clamp(20px, 4vw, 56px) 80px;
+  }
+
+  /* layout */
+  .wrap { max-width: 1280px; margin: 0 auto; display: grid; gap: 28px; }
+  header.hero {
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg,
+      rgba(123,47,190,0.18) 0%,
+      rgba(233,30,140,0.10) 50%,
+      rgba(0,212,255,0.14) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(0deg,
+        transparent 0 2px,
+        rgba(255,255,255,0.012) 2px 3px);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font: 600 11px/1 var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  h1 {
+    margin: 0 0 8px;
+    font: 800 clamp(28px, 4vw, 44px)/1.05 var(--font-body);
+    letter-spacing: -0.02em;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 55%, var(--accent-bright) 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .tagline {
+    color: var(--text-muted);
+    max-width: 68ch;
+    margin: 0;
+    font-size: 15px;
+  }
+  .hero-meta {
+    margin-top: 18px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface-4);
+    color: var(--text-muted);
+    font: 600 11px/1.4 var(--font-mono);
+    letter-spacing: 0.04em;
+  }
+  .chip::before {
+    content: "";
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
+  }
+  .chip[data-tone="pink"]::before { background: var(--accent-2); box-shadow: 0 0 8px var(--accent-2); }
+  .chip[data-tone="green"]::before { background: var(--success); box-shadow: 0 0 8px var(--success); }
+  .chip[data-tone="amber"]::before { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
+  .chip[data-tone="coral"]::before { background: var(--accent-3); box-shadow: 0 0 8px var(--accent-3); }
+  .chip[data-tone="plum"]::before { background: var(--accent-4); box-shadow: 0 0 8px var(--accent-4); }
+
+  section {
+    border: 1px solid var(--border);
+    background: var(--surface-1);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px 24px;
+    box-shadow: var(--shadow);
+  }
+  section > h2 {
+    margin: 0 0 4px;
+    font: 700 18px/1.2 var(--font-body);
+    letter-spacing: -0.005em;
+  }
+  section > h2 + .sub { margin: 0 0 18px; color: var(--text-dim); font: 400 12.5px/1.45 var(--font-body); }
+
+  /* swatches */
+  .swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .sw {
+    display: grid;
+    gap: 6px;
+    padding: 10px 12px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  .sw .chip-color {
+    height: 56px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .sw .chip-color::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.18) 100%);
+    pointer-events: none;
+  }
+  .sw .lbl { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .sw .lbl b { font: 600 12.5px/1 var(--font-body); }
+  .sw .hex {
+    font: 500 11px/1 var(--font-mono);
+    color: var(--text-muted);
+  }
+  .sw .role {
+    font: 400 10.5px/1.2 var(--font-mono);
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+  }
+
+  /* surfaces strip */
+  .surfaces {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  .surf {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 12px;
+    min-height: 78px;
+    font: 500 11px/1.25 var(--font-mono);
+  }
+  .surf b { display: block; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+  .surf span { color: var(--text-dim); font-size: 10.5px; }
+  .surf.s0 { background: var(--surface-bg); }
+  .surf.s1 { background: var(--surface-1); }
+  .surf.s2 { background: var(--surface-2); }
+  .surf.s3 { background: var(--surface-3); }
+  .surf.s4 { background: var(--surface-4); }
+
+  /* type */
+  .type-stack { display: grid; gap: 14px; }
+  .t1 { font: 800 36px/1.05 var(--font-body); letter-spacing: -0.02em; }
+  .t2 { font: 700 24px/1.15 var(--font-body); letter-spacing: -0.01em; }
+  .t3 { font: 600 18px/1.3 var(--font-body); }
+  .t4 { font: 500 15px/1.55 var(--font-body); color: var(--text); }
+  .t5 { font: 400 13px/1.55 var(--font-body); color: var(--text-muted); }
+  .mono { font: 500 13px/1.5 var(--font-mono); color: var(--accent); }
+  .type-row { display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: baseline; padding: 8px 0; border-bottom: 1px dashed var(--border); }
+  .type-row:last-child { border-bottom: 0; }
+  .type-row .meta { font: 500 11px/1.2 var(--font-mono); color: var(--text-dim); padding-top: 6px; }
+
+  /* component preview row */
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+  .btn {
+    font: 600 13px/1 var(--font-body);
+    padding: 10px 16px;
+    border-radius: var(--radius);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 100ms ease, box-shadow 150ms ease, background 150ms;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
+    color: #06000F;
+    box-shadow: 0 4px 16px rgba(0,212,255,0.28), 0 0 0 1px rgba(255,255,255,0.06) inset;
+  }
+  .btn-secondary {
+    background: var(--surface-3);
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--accent);
+    border-color: var(--border);
+  }
+  .btn-danger {
+    background: var(--danger);
+    color: #fff;
+  }
+
+  input.input {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius);
+    padding: 9px 12px;
+    font: 500 13px/1.2 var(--font-body);
+    min-width: 220px;
+    transition: border-color 120ms, box-shadow 120ms;
+  }
+  input.input:focus {
+    outline: none;
+    border-color: var(--focus-ring);
+    box-shadow: 0 0 0 3px rgba(233,30,140,0.25);
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    font: 600 10.5px/1.3 var(--font-mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    background: var(--surface-3);
+    color: var(--text);
+  }
+  .badge.success { color: var(--success); border-color: rgba(0,255,136,0.4); background: rgba(0,255,136,0.10); }
+  .badge.warning { color: var(--warning); border-color: rgba(251,191,36,0.45); background: rgba(251,191,36,0.10); }
+  .badge.danger { color: var(--danger); border-color: rgba(255,59,110,0.45); background: rgba(255,59,110,0.10); }
+  .badge.info { color: var(--info); border-color: rgba(0,212,255,0.45); background: rgba(0,212,255,0.10); }
+
+  .card {
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface-1) 100%);
+    border-radius: var(--radius-lg);
+    padding: 18px 18px 16px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: "";
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-2) 100%);
+  }
+  .card h4 { margin: 0 0 4px; font: 700 14px/1.2 var(--font-body); }
+  .card p { margin: 0; color: var(--text-muted); font-size: 13px; }
+  .card .kpi { margin-top: 10px; font: 800 28px/1 var(--font-body); color: var(--accent); }
+  .card .kpi .delta { font-size: 12px; font-weight: 600; margin-left: 8px; color: var(--success); }
+
+  /* alert */
+  .alert {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--accent);
+    background: rgba(0,212,255,0.07);
+  }
+  .alert .icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--accent);
+    color: var(--surface-bg);
+    display: grid; place-items: center;
+    font: 700 14px/1 var(--font-mono);
+  }
+  .alert b { display: block; margin-bottom: 2px; }
+  .alert span { color: var(--text-muted); font-size: 13px; }
+
+  /* chart placeholder */
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .bars {
+    display: grid; grid-template-columns: repeat(8, 1fr); align-items: end;
+    gap: 6px;
+    height: 130px;
+    padding: 6px 6px 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .bars .b {
+    border-radius: var(--radius) var(--radius) 0 0;
+    background: linear-gradient(180deg, currentColor, color-mix(in srgb, currentColor 35%, transparent));
+  }
+  .bars .b:nth-child(1) { color: var(--chart-1); height: 62%; }
+  .bars .b:nth-child(2) { color: var(--chart-2); height: 84%; }
+  .bars .b:nth-child(3) { color: var(--chart-3); height: 45%; }
+  .bars .b:nth-child(4) { color: var(--chart-4); height: 71%; }
+  .bars .b:nth-child(5) { color: var(--chart-5); height: 90%; }
+  .bars .b:nth-child(6) { color: var(--chart-6); height: 52%; }
+  .bars .b:nth-child(7) { color: var(--chart-7); height: 68%; }
+  .bars .b:nth-child(8) { color: var(--chart-8); height: 38%; }
+
+  .donut-wrap {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 12px;
+    display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: center;
+  }
+  .donut {
+    width: 116px; height: 116px; border-radius: 50%;
+    background:
+      conic-gradient(
+        var(--chart-1) 0 32%,
+        var(--chart-2) 32% 56%,
+        var(--chart-3) 56% 72%,
+        var(--chart-4) 72% 86%,
+        var(--chart-5) 86% 100%);
+    -webkit-mask: radial-gradient(circle at center, transparent 38px, #000 39px);
+            mask: radial-gradient(circle at center, transparent 38px, #000 39px);
+    box-shadow: 0 0 32px rgba(0,212,255,0.2), 0 0 64px rgba(233,30,140,0.18);
+  }
+  .legend { display: grid; gap: 6px; font: 500 12px/1.3 var(--font-mono); }
+  .legend .li { display: flex; align-items: center; gap: 8px; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend .li:nth-child(1) .dot { background: var(--chart-1); }
+  .legend .li:nth-child(2) .dot { background: var(--chart-2); }
+  .legend .li:nth-child(3) .dot { background: var(--chart-3); }
+  .legend .li:nth-child(4) .dot { background: var(--chart-4); }
+  .legend .li:nth-child(5) .dot { background: var(--chart-5); }
+
+  /* variants strip */
+  .variants {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .variant {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--surface-1);
+  }
+  .variant header {
+    padding: 8px 12px;
+    font: 700 11px/1.2 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--text-muted);
+  }
+  .variant .pad { padding: 12px; }
+  .variant .v-swatches { display: flex; gap: 4px; height: 26px; }
+  .variant .v-swatches span { flex: 1; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); }
+  .variant .v-text { margin-top: 8px; font: 600 12.5px/1.3 var(--font-body); }
+  .variant .v-meta { font: 500 11px/1.3 var(--font-mono); color: var(--text-dim); margin-top: 2px; }
+
+  /* hermes (canon) */
+  .v-hermes .v-swatches { background: #06000F; padding: 2px; }
+  .v-hermes .v-swatches span:nth-child(1) { background: #00D4FF; }
+  .v-hermes .v-swatches span:nth-child(2) { background: #E91E8C; }
+  .v-hermes .v-swatches span:nth-child(3) { background: #FF3EB5; }
+  .v-hermes .v-swatches span:nth-child(4) { background: #A66CB8; }
+  .v-hermes .v-swatches span:nth-child(5) { background: #00ff88; }
+  /* hermes-light */
+  .v-hermes-light { background: #F4ECFA; color: #1F0838; }
+  .v-hermes-light header { background: #E5D8F0; color: #1F0838; }
+  .v-hermes-light .v-swatches { background: #FFFFFF; padding: 2px; }
+  .v-hermes-light .v-swatches span:nth-child(1) { background: #6B1FA8; }
+  .v-hermes-light .v-swatches span:nth-child(2) { background: #E91E8C; }
+  .v-hermes-light .v-swatches span:nth-child(3) { background: #00A4CC; }
+  .v-hermes-light .v-swatches span:nth-child(4) { background: #A66CB8; }
+  .v-hermes-light .v-swatches span:nth-child(5) { background: #00B86C; }
+  .v-hermes-light .v-meta { color: #5C3D80; }
+  /* hermes-mono */
+  .v-hermes-mono { background: #000; color: #E0E0E0; }
+  .v-hermes-mono header { background: #1A1A1A; color: #C8C8C8; }
+  .v-hermes-mono .v-swatches { background: #0A0A0A; padding: 2px; }
+  .v-hermes-mono .v-swatches span:nth-child(1) { background: #F0F0F0; }
+  .v-hermes-mono .v-swatches span:nth-child(2) { background: #B8B8B8; }
+  .v-hermes-mono .v-swatches span:nth-child(3) { background: #888888; }
+  .v-hermes-mono .v-swatches span:nth-child(4) { background: #565656; }
+  .v-hermes-mono .v-swatches span:nth-child(5) { background: #2A2A2A; }
+  /* hermes-toxic */
+  .v-hermes-toxic { background: #0A0F00; color: #DDE6CC; }
+  .v-hermes-toxic header { background: #142400; color: #A0E040; }
+  .v-hermes-toxic .v-swatches { background: #0A0F00; padding: 2px; }
+  .v-hermes-toxic .v-swatches span:nth-child(1) { background: #A0E040; }
+  .v-hermes-toxic .v-swatches span:nth-child(2) { background: #FCEE0A; }
+  .v-hermes-toxic .v-swatches span:nth-child(3) { background: #FF8030; }
+  .v-hermes-toxic .v-swatches span:nth-child(4) { background: #FF1E8C; }
+  .v-hermes-toxic .v-swatches span:nth-child(5) { background: #00C2FF; }
+
+  /* footer */
+  footer { color: var(--text-dim); font: 400 11.5px/1.4 var(--font-mono); padding-top: 10px; text-align: center; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 880px) {
+    .surfaces { grid-template-columns: repeat(2, 1fr); }
+    .chart-row { grid-template-columns: 1fr; }
+    .variants { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="hero">
+      <div class="eyebrow">brand-kit · theme</div>
+      <h1>HERMES · void, plasma, signal</h1>
+      <p class="tagline">
+        Dark surface (#06000F void), plum field, with cyan / pink / coral / plum / acid-green accents.
+        Glassmorphism on surface-4 (translucent purple), Outfit display + JetBrains Mono. Used by HERMES Workshop modules and the HERMES splash custom widget.
+      </p>
+      <div class="hero-meta">
+        <span class="chip">data-theme="hermes"</span>
+        <span class="chip" data-tone="pink">v0.22.0</span>
+        <span class="chip" data-tone="green">Outfit / JetBrains Mono</span>
+        <span class="chip" data-tone="amber">8-slot chart palette</span>
+        <span class="chip" data-tone="plum">glass surface-4</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>Core palette</h2>
+      <p class="sub">Accent slots a component reads (short-alias tokens). Drift these and the rest of the theme moves with you.</p>
+      <div class="swatches">
+        <div class="sw"><div class="chip-color" style="background:#00D4FF"></div><div class="lbl"><b>Cyan</b><span class="hex">#00D4FF</span></div><div class="role">--accent · action-primary · info · chart-1</div></div>
+        <div class="sw"><div class="chip-color" style="background:#E91E8C"></div><div class="lbl"><b>Pink</b><span class="hex">#E91E8C</span></div><div class="role">--accent-2 · border-strong · focus-ring · chart-2</div></div>
+        <div class="sw"><div class="chip-color" style="background:#FF3EB5"></div><div class="lbl"><b>Pink hot</b><span class="hex">#FF3EB5</span></div><div class="role">--accent-bright</div></div>
+        <div class="sw"><div class="chip-color" style="background:#E8765C"></div><div class="lbl"><b>Coral</b><span class="hex">#E8765C</span></div><div class="role">--accent-3 · chart-3</div></div>
+        <div class="sw"><div class="chip-color" style="background:#A66CB8"></div><div class="lbl"><b>Plum</b><span class="hex">#A66CB8</span></div><div class="role">--accent-4 · chart-4</div></div>
+        <div class="sw"><div class="chip-color" style="background:#00ff88"></div><div class="lbl"><b>Hermes green</b><span class="hex">#00FF88</span></div><div class="role">--accent-5 · success · chart-5</div></div>
+        <div class="sw"><div class="chip-color" style="background:#fbbf24"></div><div class="lbl"><b>Warning</b><span class="hex">#FBBF24</span></div><div class="role">--warning</div></div>
+        <div class="sw"><div class="chip-color" style="background:#ff3b6e"></div><div class="lbl"><b>Danger</b><span class="hex">#FF3B6E</span></div><div class="role">--danger</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Surfaces</h2>
+      <p class="sub">Five-level stack. void → deep → purple field → translucent glass. Use surface-4 sparingly for glass overlays.</p>
+      <div class="surfaces">
+        <div class="surf s0"><b>surface-bg</b><span>#06000F · void</span></div>
+        <div class="surf s1"><b>surface-1</b><span>#0D0018 · deep</span></div>
+        <div class="surf s2"><b>surface-2</b><span>#150024 · field</span></div>
+        <div class="surf s3"><b>surface-3</b><span>#1D0033 · field-raised</span></div>
+        <div class="surf s4"><b>surface-4</b><span>rgba(123,47,190,0.15) · glass</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Type</h2>
+      <p class="sub">Outfit display and body; JetBrains Mono for code, labels, and metric data.</p>
+      <div class="type-stack">
+        <div class="type-row"><span class="meta">display / 36 / 800</span><span class="t1">Strategic Pause</span></div>
+        <div class="type-row"><span class="meta">h2 / 24 / 700</span><span class="t2">Sync Matrix — Phase 0–II</span></div>
+        <div class="type-row"><span class="meta">h3 / 18 / 600</span><span class="t3">Decision points by workstream</span></div>
+        <div class="type-row"><span class="meta">body / 15 / 500</span><span class="t4">Operational data team reference. Pair with kit-react for any consumer surface.</span></div>
+        <div class="type-row"><span class="meta">muted / 13 / 400</span><span class="t5">Secondary text, helper copy, and metadata sit at <code>--text-muted</code>.</span></div>
+        <div class="type-row"><span class="meta">mono / 13 / 500</span><span class="mono">const accent = "var(--accent)"; // #00D4FF</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Components in situ</h2>
+      <p class="sub">A representative cluster — buttons, input with focus ring, badges, KPI card, alert. Same tokens, every component.</p>
+
+      <div class="row" style="margin-bottom: 16px;">
+        <button class="btn btn-primary">Primary action</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-ghost">Ghost</button>
+        <button class="btn btn-danger">Danger</button>
+        <input class="input" type="text" placeholder="hermes.input — try focus to see ring" />
+      </div>
+
+      <div class="row" style="margin-bottom: 18px;">
+        <span class="badge info">Info</span>
+        <span class="badge success">In sync</span>
+        <span class="badge warning">Pending</span>
+        <span class="badge danger">Blocked</span>
+        <span class="badge">Default</span>
+      </div>
+
+      <div class="chart-row" style="margin-bottom: 18px;">
+        <div class="card">
+          <h4>Open decision points</h4>
+          <p>Workstreams blocked on next decision</p>
+          <div class="kpi">14 <span class="delta">▲ 3</span></div>
+        </div>
+        <div class="alert">
+          <div class="icon">i</div>
+          <div>
+            <b>Sync matrix refreshed</b>
+            <span>HERMES dashboards rebuilt from the new MIM ontology view; reload to see updated swimlanes.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-row">
+        <div>
+          <div class="bars" aria-hidden="true">
+            <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+            <span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span>
+          </div>
+          <p class="sub" style="margin: 8px 0 0;">Bar chart — 8 chart slots (<code>--chart-1..8</code>)</p>
+        </div>
+        <div class="donut-wrap">
+          <div class="donut" aria-hidden="true"></div>
+          <div class="legend">
+            <div class="li"><span class="dot"></span>Cyan · 32%</div>
+            <div class="li"><span class="dot"></span>Pink · 24%</div>
+            <div class="li"><span class="dot"></span>Coral · 16%</div>
+            <div class="li"><span class="dot"></span>Plum · 14%</div>
+            <div class="li"><span class="dot"></span>Green · 14%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Variants</h2>
+      <p class="sub">The HERMES theme ships in four tokens files. All read the same component CSS; only the values change.</p>
+      <div class="variants">
+        <div class="variant v-hermes">
+          <header>hermes · canon</header>
+          <div class="pad">
+            <div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="v-text">Void / cyan / pink / coral / plum / green</div>
+            <div class="v-meta">data-theme="hermes"</div>
+          </div>
+        </div>
+        <div class="variant v-hermes-light">
+          <header>hermes-light</header>
+          <div class="pad">
+            <div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="v-text">Lavender field, deep purple ink</div>
+            <div class="v-meta">data-theme="hermes-light"</div>
+          </div>
+        </div>
+        <div class="variant v-hermes-mono">
+          <header>hermes-mono</header>
+          <div class="pad">
+            <div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="v-text">Pure grayscale, identical ramps</div>
+            <div class="v-meta">data-theme="hermes-mono"</div>
+          </div>
+        </div>
+        <div class="variant v-hermes-toxic">
+          <header>hermes-toxic</header>
+          <div class="pad">
+            <div class="v-swatches"><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="v-text">Acid green field, signal-yellow accent</div>
+            <div class="v-meta">data-theme="hermes-toxic"</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Where it lives</h2>
+      <p class="sub">Single source of truth and where consumers pick it up.</p>
+      <ul style="margin: 0; padding-left: 20px; color: var(--text-muted); font-size: 13px; line-height: 1.7;">
+        <li><span class="mono">tokens/themes/hermes.json</span> — token source. Edit here, regenerate.</li>
+        <li><span class="mono">scripts/build-tokens.ts</span> — generator. Reads every <code>tokens/themes/*.json</code>, writes <code>dist/&lt;name&gt;.css</code>.</li>
+        <li><span class="mono">dist/hermes.css</span> — generated CSS. <strong>This page consumes it.</strong></li>
+        <li><span class="mono">deliverables/kit-react/src/tokens/hermes.css</span> — vendor copy for React consumers.</li>
+        <li><span class="mono">~/projects/odt/architecture/cda/apps/shared/hermes-theme.css</span> — original donor (kept for cross-app reference).</li>
+      </ul>
+    </section>
+
+    <footer>
+      brand-kit v0.22.0 · USAREUR-AF ODT · HERMES picture overview · open with <code>xdg-open HERMES-OVERVIEW.html</code>
+    </footer>
+  </div>
+</body>
+</html>
