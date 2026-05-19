@@ -884,7 +884,38 @@
     .surfaces { grid-template-columns: repeat(2, 1fr); }
     .variants { grid-template-columns: 1fr 1fr; }
   }
+
+  /* ------------------------------------------------------------------
+     D3 chart wrappers (real rendered charts further down the page)
+  ------------------------------------------------------------------ */
+  .d3 {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 8px;
+    min-height: 220px;
+    position: relative;
+  }
+  .d3.tall { min-height: 280px; }
+  .d3 svg { display: block; width: 100%; height: 100%; }
+  .d3 .axis path, .d3 .axis line { stroke: var(--border); shape-rendering: crispEdges; }
+  .d3 .axis text { fill: var(--text-muted); font: 500 10px/1 var(--font-mono); }
+  .d3 .grid line { stroke: var(--border); stroke-dasharray: 2 4; }
+  .d3 .grid path { stroke: transparent; }
+  .d3 .chart-title { fill: var(--text); font: 700 11px/1.2 var(--font-body); }
+  .d3 .legend text { fill: var(--text-muted); font: 500 10px/1 var(--font-mono); }
+  .d3 .tip {
+    position: absolute; pointer-events: none; opacity: 0;
+    background: var(--surface-bg); border: 1px solid var(--accent);
+    color: var(--text); padding: 4px 8px; border-radius: var(--radius);
+    font: 500 10.5px/1.3 var(--font-mono);
+    box-shadow: var(--shadow-lg);
+    transition: opacity 100ms;
+    z-index: 5;
+  }
 </style>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -1181,6 +1212,63 @@
         <div class="stat-box"><span class="lbl">Lanes synced</span><span class="val">11 / 18</span><span class="ann">7 in handoff</span></div>
         <div class="stat-box"><span class="lbl">Sync gates</span><span class="val">4</span><span class="ann">Phase 0–II</span></div>
         <div class="stat-box"><span class="lbl">Last refresh</span><span class="val">06:14</span><span class="ann">auto, ETL run #418</span></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         D3.JS LIVE CHARTS PILLAR
+    ============================================================ -->
+    <section>
+      <p class="pillar-eyebrow">Pillar · D3.js live charts</p>
+      <h2>Real D3-rendered visualizations</h2>
+      <p class="sub">
+        Each panel below is rendered by D3 v7 at page load. Every chart reads its colors / axes / typography from the HERMES tokens (<code>--chart-1..8</code>, <code>--accent</code>, <code>--text-muted</code>, <code>--border</code>) via <code>getComputedStyle</code> — the same hook pattern <code>kit-react/charts/lib/chart-tokens.ts</code> uses. Drift the token, the chart restyles.
+      </p>
+
+      <h3 class="subhead">Axis-based (xy)</h3>
+      <div class="grid g2">
+        <div class="sc"><header>Line · multi-series + axes <span class="num">/ 3 lines</span></header><div class="d3 stage" id="d3-line"></div><p class="note">d3.line + curveMonotoneX + d3.axisBottom/Left + d3.scaleLinear. Tooltip on hover.</p></div>
+        <div class="sc"><header>Bar · vertical + value labels <span class="num">/ 12 categories</span></header><div class="d3 stage" id="d3-bar"></div><p class="note">d3.scaleBand x + d3.scaleLinear y. Single-tone (chart-1).</p></div>
+        <div class="sc"><header>Horizontal bar / lollipop</header><div class="d3 stage" id="d3-hbar"></div><p class="note">scaleBand inverted; lollipop with circle terminator on chart-2.</p></div>
+        <div class="sc"><header>Stacked bar <span class="num">/ 3 series</span></header><div class="d3 stage" id="d3-stack"></div><p class="note">d3.stack on long-form data, palette slots 1-3.</p></div>
+        <div class="sc"><header>Grouped bar <span class="num">/ 3 series</span></header><div class="d3 stage" id="d3-grouped"></div><p class="note">Two scaleBand axes (category + subcategory).</p></div>
+        <div class="sc"><header>Stacked area <span class="num">/ 3 series</span></header><div class="d3 stage" id="d3-area"></div><p class="note">d3.stack + d3.area with curveCatmullRom.</p></div>
+        <div class="sc"><header>Streamgraph <span class="num">/ 5 series, center-offset</span></header><div class="d3 stage" id="d3-stream"></div><p class="note">stackOffsetWiggle + stackOrderInsideOut. Same data shape as stacked area.</p></div>
+        <div class="sc"><header>Scatter / bubble · 3 clusters</header><div class="d3 stage" id="d3-scatter"></div><p class="note">Radius encodes magnitude; cluster id encodes hue.</p></div>
+      </div>
+
+      <h3 class="subhead">Distribution</h3>
+      <div class="grid g2">
+        <div class="sc"><header>Histogram · 18 bins</header><div class="d3 stage" id="d3-hist"></div><p class="note">d3.bin with d3.thresholdScott. Mean line in accent-2.</p></div>
+        <div class="sc"><header>Boxplot · 5 groups</header><div class="d3 stage" id="d3-box"></div><p class="note">Quartiles via d3.quantile; whiskers at 1.5×IQR.</p></div>
+        <div class="sc"><header>Violin / KDE · 4 groups</header><div class="d3 stage" id="d3-violin"></div><p class="note">Hand-rolled kernel density estimate, mirrored as violin.</p></div>
+        <div class="sc"><header>Hexbin density</header><div class="d3 stage" id="d3-hex"></div><p class="note">Hex tiling with magnitude encoded as cyan opacity.</p></div>
+      </div>
+
+      <h3 class="subhead">Part-of-whole</h3>
+      <div class="grid g3">
+        <div class="sc"><header>Donut · arc labels</header><div class="d3 stage" id="d3-donut"></div><p class="note">d3.pie + d3.arc, padAngle for spacing.</p></div>
+        <div class="sc"><header>Radial bar</header><div class="d3 stage" id="d3-radial"></div><p class="note">d3.arc in polar; magnitude on radius.</p></div>
+        <div class="sc"><header>Sunburst · 3 levels</header><div class="d3 stage" id="d3-sunburst"></div><p class="note">d3.partition + d3.arc; hierarchical nest.</p></div>
+        <div class="sc"><header>Treemap · 16 leaves</header><div class="d3 stage" id="d3-treemap"></div><p class="note">d3.treemap squarify; label survival via min-area.</p></div>
+        <div class="sc"><header>Pack / circle pack</header><div class="d3 stage" id="d3-pack"></div><p class="note">d3.pack hierarchy; circle radius = leaf value.</p></div>
+        <div class="sc"><header>Waffle · 100 cells</header><div class="d3 stage" id="d3-waffle"></div><p class="note">10×10 grid filled by category share.</p></div>
+      </div>
+
+      <h3 class="subhead">Relational / network</h3>
+      <div class="grid g2">
+        <div class="sc tall"><header>Force-directed network</header><div class="d3 stage" id="d3-force"></div><p class="note">d3.forceSimulation: link + charge + center + collide. 18 nodes, 24 edges.</p></div>
+        <div class="sc tall"><header>Chord diagram</header><div class="d3 stage" id="d3-chord"></div><p class="note">d3.chord + d3.ribbon. 6-group adjacency matrix.</p></div>
+        <div class="sc tall"><header>Sankey · 3-tier flow</header><div class="d3 stage" id="d3-sankey"></div><p class="note">d3-sankey plugin. Source→Stage→Outcome flows; link opacity ≈ value.</p></div>
+        <div class="sc tall"><header>Dendrogram / cluster tree</header><div class="d3 stage" id="d3-tree"></div><p class="note">d3.hierarchy + d3.cluster; right-flowing tree.</p></div>
+      </div>
+
+      <h3 class="subhead">Grids & calendars</h3>
+      <div class="grid g2">
+        <div class="sc"><header>Heatmap · 12 × 7 with axes</header><div class="d3 stage" id="d3-heat"></div><p class="note">scaleBand × scaleBand; scaleSequential on cyan domain.</p></div>
+        <div class="sc"><header>Calendar heatmap · 1 year</header><div class="d3 stage" id="d3-cal"></div><p class="note">Days-of-week rows × weeks-of-year columns. Single-hue sequential.</p></div>
+        <div class="sc"><header>Parallel coordinates · 5 axes</header><div class="d3 stage" id="d3-parcoord"></div><p class="note">5 vertical scaleLinear axes; one polyline per record.</p></div>
+        <div class="sc"><header>Radar / spider · 6 axes</header><div class="d3 stage" id="d3-radar"></div><p class="note">Polar polygons across 6 dimensions; two profiles overlaid.</p></div>
       </div>
     </section>
 
@@ -2070,5 +2158,712 @@ document.documentElement.setAttribute(<span class="str">"data-theme"</span>, <sp
       brand-kit v0.22.0 · USAREUR-AF ODT · HERMES picture overview · <a href="https://usareur-af-odt.github.io/hermestheme/">usareur-af-odt.github.io/hermestheme</a>
     </footer>
   </div>
+
+<script>
+/* ------------------------------------------------------------------
+   D3 render — pulls HERMES tokens, renders 25 charts on load
+------------------------------------------------------------------ */
+(function () {
+  if (typeof d3 === 'undefined') return;
+
+  function readTokens() {
+    const css = getComputedStyle(document.documentElement);
+    const g = n => css.getPropertyValue(n).trim();
+    return {
+      palette: [1,2,3,4,5,6,7,8].map(i => g('--chart-'+i)),
+      accent:    g('--accent'),
+      accent2:   g('--accent-2'),
+      accent3:   g('--accent-3'),
+      accent4:   g('--accent-4'),
+      accent5:   g('--accent-5'),
+      accentB:   g('--accent-bright'),
+      success:   g('--success'),
+      warning:   g('--warning'),
+      danger:    g('--danger'),
+      text:      g('--text'),
+      textMuted: g('--text-muted'),
+      textDim:   g('--text-dim'),
+      surface:   g('--surface-bg'),
+      surface1:  g('--surface-1'),
+      surface2:  g('--surface-2'),
+      surface3:  g('--surface-3'),
+      border:    g('--border'),
+      borderStrong: g('--border-strong'),
+      mono: g('--font-mono') || "'JetBrains Mono', monospace",
+      body: g('--font-body') || "'Outfit', system-ui, sans-serif",
+    };
+  }
+
+  function mount(id, w, h, pad) {
+    const host = document.getElementById(id);
+    if (!host) return null;
+    host.innerHTML = '';
+    const rect = host.getBoundingClientRect();
+    const W = w || Math.max(220, Math.floor(rect.width || 320));
+    const H = h || Math.max(180, Math.floor(rect.clientHeight || 200));
+    const svg = d3.select(host).append('svg')
+      .attr('viewBox', `0 0 ${W} ${H}`)
+      .attr('preserveAspectRatio', 'xMidYMid meet');
+    return { host, svg, W, H, pad: pad || { t: 18, r: 14, b: 26, l: 32 } };
+  }
+
+  function tip(host) {
+    const node = document.createElement('div');
+    node.className = 'tip';
+    host.appendChild(node);
+    return {
+      show(html, ev) {
+        node.innerHTML = html;
+        node.style.opacity = 1;
+        const hostRect = host.getBoundingClientRect();
+        node.style.left = (ev.clientX - hostRect.left + 10) + 'px';
+        node.style.top  = (ev.clientY - hostRect.top + 10) + 'px';
+      },
+      hide() { node.style.opacity = 0; },
+    };
+  }
+
+  function styleAxes(g, t) {
+    g.selectAll('.tick line').attr('stroke', t.border);
+    g.selectAll('.domain').attr('stroke', t.border);
+    g.selectAll('text').attr('fill', t.textMuted);
+  }
+
+  const T = readTokens();
+
+  /* ---------------- LINE (multi-series) ---------------- */
+  (function lineChart() {
+    const m = mount('d3-line', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad, host } = m;
+    const series = [
+      d3.range(12).map((i) => ({ x: i, y: 30 + Math.sin(i / 1.7) * 18 + Math.random() * 6 })),
+      d3.range(12).map((i) => ({ x: i, y: 45 + Math.cos(i / 2.1) * 12 + Math.random() * 5 })),
+      d3.range(12).map((i) => ({ x: i, y: 20 + i * 1.6 + Math.random() * 4 })),
+    ];
+    const x = d3.scaleLinear().domain([0, 11]).range([pad.l, W - pad.r]);
+    const y = d3.scaleLinear().domain([0, 90]).nice().range([H - pad.b, pad.t]);
+    svg.append('g').attr('class', 'grid')
+      .attr('transform', `translate(${pad.l},0)`)
+      .call(d3.axisLeft(y).ticks(4).tickSize(-(W - pad.l - pad.r)).tickFormat(''));
+    svg.select('.grid').selectAll('line').attr('stroke', T.border).attr('stroke-dasharray', '2 4');
+    const line = d3.line().x(d => x(d.x)).y(d => y(d.y)).curve(d3.curveMonotoneX);
+    series.forEach((s, i) => {
+      svg.append('path').datum(s).attr('fill', 'none')
+        .attr('stroke', T.palette[i])
+        .attr('stroke-width', 2)
+        .attr('filter', `drop-shadow(0 0 4px ${T.palette[i]}88)`)
+        .attr('d', line);
+    });
+    const ax = svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x).ticks(6).tickFormat(d => 'W' + (d + 1)));
+    const ay = svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(4));
+    styleAxes(ax, T); styleAxes(ay, T);
+    const t = tip(host);
+    const merged = series.flatMap((s, si) => s.map(d => ({ ...d, si })));
+    svg.selectAll('.dot').data(merged).enter().append('circle')
+      .attr('cx', d => x(d.x)).attr('cy', d => y(d.y))
+      .attr('r', 3).attr('fill', d => T.palette[d.si])
+      .style('cursor', 'crosshair')
+      .on('mousemove', (ev, d) => t.show(`<b style="color:${T.palette[d.si]}">S${d.si + 1}</b> · W${d.x + 1} · ${d.y.toFixed(1)}`, ev))
+      .on('mouseleave', () => t.hide());
+  })();
+
+  /* ---------------- BAR (vertical) ---------------- */
+  (function barChart() {
+    const m = mount('d3-bar', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const data = d3.range(12).map(i => ({ k: 'D' + (i + 1), v: 20 + Math.abs(Math.sin(i * 0.8)) * 60 + Math.random() * 15 }));
+    const x = d3.scaleBand().domain(data.map(d => d.k)).range([pad.l, W - pad.r]).padding(0.2);
+    const y = d3.scaleLinear().domain([0, d3.max(data, d => d.v) * 1.1]).nice().range([H - pad.b, pad.t]);
+    svg.append('g').attr('class', 'grid').attr('transform', `translate(${pad.l},0)`)
+      .call(d3.axisLeft(y).ticks(4).tickSize(-(W - pad.l - pad.r)).tickFormat(''));
+    svg.select('.grid').selectAll('line').attr('stroke', T.border).attr('stroke-dasharray', '2 4');
+    const grad = svg.append('defs').append('linearGradient').attr('id', 'gradBar').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 1);
+    grad.append('stop').attr('offset', '0%').attr('stop-color', T.accent).attr('stop-opacity', 0.95);
+    grad.append('stop').attr('offset', '100%').attr('stop-color', T.accent).attr('stop-opacity', 0.3);
+    svg.selectAll('.bar').data(data).enter().append('rect')
+      .attr('x', d => x(d.k)).attr('y', d => y(d.v))
+      .attr('width', x.bandwidth()).attr('height', d => H - pad.b - y(d.v))
+      .attr('fill', 'url(#gradBar)').attr('rx', 2);
+    svg.selectAll('.lbl').data(data).enter().append('text')
+      .attr('x', d => x(d.k) + x.bandwidth() / 2).attr('y', d => y(d.v) - 4)
+      .attr('text-anchor', 'middle').attr('font-family', T.mono).attr('font-size', 9)
+      .attr('fill', T.textMuted).text(d => Math.round(d.v));
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(4)), T);
+  })();
+
+  /* ---------------- HORIZONTAL BAR / LOLLIPOP ---------------- */
+  (function hbar() {
+    const m = mount('d3-hbar', 460, 210, { t: 14, r: 14, b: 24, l: 80 });
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const data = [
+      { k: 'Sync · Decision', v: 92 },
+      { k: 'Sync · Logistics', v: 76 },
+      { k: 'Sync · Risk', v: 58 },
+      { k: 'Sync · Comms', v: 44 },
+      { k: 'Sync · Maintenance', v: 31 },
+      { k: 'Sync · ARB review', v: 22 },
+    ];
+    const y = d3.scaleBand().domain(data.map(d => d.k)).range([pad.t, H - pad.b]).padding(0.3);
+    const x = d3.scaleLinear().domain([0, 100]).range([pad.l, W - pad.r]);
+    svg.append('g').attr('class', 'grid').attr('transform', `translate(0,${H - pad.b})`)
+      .call(d3.axisBottom(x).ticks(5).tickSize(-(H - pad.b - pad.t)).tickFormat(''));
+    svg.select('.grid').selectAll('line').attr('stroke', T.border).attr('stroke-dasharray', '2 4');
+    svg.selectAll('.stem').data(data).enter().append('line')
+      .attr('x1', pad.l).attr('x2', d => x(d.v))
+      .attr('y1', d => y(d.k) + y.bandwidth() / 2).attr('y2', d => y(d.k) + y.bandwidth() / 2)
+      .attr('stroke', T.accent2).attr('stroke-width', 2);
+    svg.selectAll('.head').data(data).enter().append('circle')
+      .attr('cx', d => x(d.v)).attr('cy', d => y(d.k) + y.bandwidth() / 2)
+      .attr('r', 5).attr('fill', T.accent2)
+      .attr('filter', `drop-shadow(0 0 4px ${T.accent2}88)`);
+    svg.selectAll('.vlbl').data(data).enter().append('text')
+      .attr('x', d => x(d.v) + 8).attr('y', d => y(d.k) + y.bandwidth() / 2)
+      .attr('dominant-baseline', 'middle').attr('font-family', T.mono).attr('font-size', 9.5)
+      .attr('fill', T.text).text(d => d.v + '%');
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x).ticks(5).tickFormat(d => d + '%')), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y)), T);
+  })();
+
+  /* ---------------- STACKED BAR ---------------- */
+  (function stacked() {
+    const m = mount('d3-stack', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const keys = ['a', 'b', 'c'];
+    const data = d3.range(8).map(i => ({ x: 'Q' + (i + 1), a: 15 + Math.random() * 25, b: 10 + Math.random() * 18, c: 8 + Math.random() * 14 }));
+    const stack = d3.stack().keys(keys)(data);
+    const x = d3.scaleBand().domain(data.map(d => d.x)).range([pad.l, W - pad.r]).padding(0.18);
+    const y = d3.scaleLinear().domain([0, d3.max(stack[stack.length - 1], d => d[1]) * 1.05]).range([H - pad.b, pad.t]);
+    svg.append('g').selectAll('g').data(stack).enter().append('g')
+      .attr('fill', (_, i) => T.palette[i])
+      .selectAll('rect').data(d => d).enter().append('rect')
+      .attr('x', d => x(d.data.x)).attr('y', d => y(d[1]))
+      .attr('height', d => y(d[0]) - y(d[1])).attr('width', x.bandwidth())
+      .attr('rx', 2);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(4)), T);
+  })();
+
+  /* ---------------- GROUPED BAR ---------------- */
+  (function grouped() {
+    const m = mount('d3-grouped', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const keys = ['Q1', 'Q2', 'Q3'];
+    const data = ['G3', 'G4', 'G6', 'SJA', 'G8'].map(k => ({ k, Q1: 10 + Math.random() * 40, Q2: 10 + Math.random() * 40, Q3: 10 + Math.random() * 40 }));
+    const x0 = d3.scaleBand().domain(data.map(d => d.k)).range([pad.l, W - pad.r]).padding(0.22);
+    const x1 = d3.scaleBand().domain(keys).range([0, x0.bandwidth()]).padding(0.08);
+    const y = d3.scaleLinear().domain([0, 50]).range([H - pad.b, pad.t]);
+    svg.append('g').selectAll('g').data(data).enter().append('g')
+      .attr('transform', d => `translate(${x0(d.k)},0)`)
+      .selectAll('rect').data(d => keys.map((k, i) => ({ k, v: d[k], i })))
+      .enter().append('rect')
+      .attr('x', d => x1(d.k)).attr('y', d => y(d.v))
+      .attr('width', x1.bandwidth()).attr('height', d => H - pad.b - y(d.v))
+      .attr('fill', d => T.palette[d.i]).attr('rx', 2);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x0)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(4)), T);
+  })();
+
+  /* ---------------- STACKED AREA ---------------- */
+  (function stackedArea() {
+    const m = mount('d3-area', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const keys = ['a', 'b', 'c'];
+    const data = d3.range(20).map(i => ({ x: i, a: 10 + Math.abs(Math.sin(i / 3)) * 18, b: 6 + Math.abs(Math.cos(i / 2.5)) * 12, c: 4 + Math.abs(Math.sin(i / 4 + 1)) * 10 }));
+    const stack = d3.stack().keys(keys)(data);
+    const x = d3.scaleLinear().domain([0, 19]).range([pad.l, W - pad.r]);
+    const y = d3.scaleLinear().domain([0, d3.max(stack[stack.length - 1], d => d[1]) * 1.05]).range([H - pad.b, pad.t]);
+    const area = d3.area().x(d => x(d.data.x)).y0(d => y(d[0])).y1(d => y(d[1])).curve(d3.curveCatmullRom);
+    svg.append('g').selectAll('path').data(stack).enter().append('path')
+      .attr('fill', (_, i) => T.palette[i]).attr('opacity', 0.78).attr('d', area);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x).ticks(6).tickFormat(d => 'W' + d)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(4)), T);
+  })();
+
+  /* ---------------- STREAMGRAPH ---------------- */
+  (function stream() {
+    const m = mount('d3-stream', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const keys = ['a', 'b', 'c', 'd', 'e'];
+    const data = d3.range(24).map(i => {
+      const obj = { x: i };
+      keys.forEach((k, j) => obj[k] = 5 + Math.abs(Math.sin(i / 3 + j * 1.3)) * 14 + Math.random() * 4);
+      return obj;
+    });
+    const stack = d3.stack().keys(keys).offset(d3.stackOffsetWiggle).order(d3.stackOrderInsideOut)(data);
+    const x = d3.scaleLinear().domain([0, 23]).range([pad.l, W - pad.r]);
+    const yExt = [d3.min(stack, l => d3.min(l, d => d[0])), d3.max(stack, l => d3.max(l, d => d[1]))];
+    const y = d3.scaleLinear().domain(yExt).range([H - pad.b, pad.t]);
+    const area = d3.area().x(d => x(d.data.x)).y0(d => y(d[0])).y1(d => y(d[1])).curve(d3.curveBasis);
+    svg.append('g').selectAll('path').data(stack).enter().append('path')
+      .attr('fill', (_, i) => T.palette[i]).attr('opacity', 0.85).attr('d', area);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x).ticks(8).tickFormat(d => 'T' + d)), T);
+  })();
+
+  /* ---------------- SCATTER ---------------- */
+  (function scatter() {
+    const m = mount('d3-scatter', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad, host } = m;
+    const cluster = (cx, cy, n, ci) => d3.range(n).map(() => ({ x: cx + (Math.random() - 0.5) * 18, y: cy + (Math.random() - 0.5) * 18, r: 3 + Math.random() * 6, ci }));
+    const pts = [...cluster(30, 70, 14, 0), ...cluster(60, 45, 14, 1), ...cluster(85, 22, 14, 4)];
+    const x = d3.scaleLinear().domain([0, 100]).range([pad.l, W - pad.r]);
+    const y = d3.scaleLinear().domain([0, 100]).range([H - pad.b, pad.t]);
+    svg.append('g').attr('class', 'grid').attr('transform', `translate(${pad.l},0)`)
+      .call(d3.axisLeft(y).ticks(4).tickSize(-(W - pad.l - pad.r)).tickFormat(''));
+    svg.select('.grid').selectAll('line').attr('stroke', T.border).attr('stroke-dasharray', '2 4');
+    const t = tip(host);
+    svg.selectAll('circle').data(pts).enter().append('circle')
+      .attr('cx', d => x(d.x)).attr('cy', d => y(d.y)).attr('r', d => d.r)
+      .attr('fill', d => T.palette[d.ci]).attr('opacity', 0.78)
+      .on('mousemove', (ev, d) => t.show(`<b style="color:${T.palette[d.ci]}">cluster ${d.ci+1}</b> · x=${d.x.toFixed(1)} y=${d.y.toFixed(1)}`, ev))
+      .on('mouseleave', () => t.hide());
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x).ticks(5)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(5)), T);
+  })();
+
+  /* ---------------- HISTOGRAM ---------------- */
+  (function hist() {
+    const m = mount('d3-hist', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const data = d3.range(400).map(() => d3.randomNormal(50, 14)());
+    const x = d3.scaleLinear().domain(d3.extent(data)).nice().range([pad.l, W - pad.r]);
+    const bins = d3.bin().domain(x.domain()).thresholds(18)(data);
+    const y = d3.scaleLinear().domain([0, d3.max(bins, b => b.length)]).range([H - pad.b, pad.t]);
+    svg.selectAll('.bar').data(bins).enter().append('rect')
+      .attr('x', d => x(d.x0) + 1).attr('y', d => y(d.length))
+      .attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 1.5)).attr('height', d => H - pad.b - y(d.length))
+      .attr('fill', T.accent).attr('opacity', 0.85).attr('rx', 1);
+    const mean = d3.mean(data);
+    svg.append('line').attr('x1', x(mean)).attr('x2', x(mean))
+      .attr('y1', pad.t).attr('y2', H - pad.b)
+      .attr('stroke', T.accent2).attr('stroke-width', 2).attr('stroke-dasharray', '4 3');
+    svg.append('text').attr('x', x(mean) + 4).attr('y', pad.t + 10).attr('fill', T.accent2)
+      .attr('font-family', T.mono).attr('font-size', 9).text(`μ = ${mean.toFixed(1)}`);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x).ticks(6)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(4)), T);
+  })();
+
+  /* ---------------- BOXPLOT ---------------- */
+  (function box() {
+    const m = mount('d3-box', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const groups = ['G3', 'G4', 'G6', 'SJA', 'G8'].map(k => ({ k, vals: d3.range(40).map(() => d3.randomNormal(45 + Math.random() * 20, 8)()) }));
+    const x = d3.scaleBand().domain(groups.map(d => d.k)).range([pad.l, W - pad.r]).padding(0.4);
+    const y = d3.scaleLinear().domain([10, 90]).range([H - pad.b, pad.t]);
+    groups.forEach(g => {
+      const s = g.vals.slice().sort(d3.ascending);
+      g.q1 = d3.quantile(s, 0.25); g.med = d3.quantile(s, 0.5); g.q3 = d3.quantile(s, 0.75);
+      g.iqr = g.q3 - g.q1; g.lo = Math.max(d3.min(s), g.q1 - 1.5 * g.iqr); g.hi = Math.min(d3.max(s), g.q3 + 1.5 * g.iqr);
+    });
+    const bw = x.bandwidth();
+    groups.forEach((g, i) => {
+      const cx = x(g.k) + bw / 2;
+      svg.append('line').attr('x1', cx).attr('x2', cx).attr('y1', y(g.lo)).attr('y2', y(g.hi)).attr('stroke', T.borderStrong);
+      svg.append('rect').attr('x', x(g.k)).attr('y', y(g.q3)).attr('width', bw).attr('height', y(g.q1) - y(g.q3))
+        .attr('fill', T.palette[i % T.palette.length]).attr('opacity', 0.6).attr('stroke', T.palette[i % T.palette.length]).attr('rx', 2);
+      svg.append('line').attr('x1', x(g.k)).attr('x2', x(g.k) + bw).attr('y1', y(g.med)).attr('y2', y(g.med)).attr('stroke', T.text).attr('stroke-width', 2);
+    });
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(5)), T);
+  })();
+
+  /* ---------------- VIOLIN ---------------- */
+  (function violin() {
+    const m = mount('d3-violin', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const groups = ['Q1', 'Q2', 'Q3', 'Q4'].map((k, i) => ({ k, vals: d3.range(120).map(() => d3.randomNormal(50 + i * 4, 8 + i * 1.2)()) }));
+    const x = d3.scaleBand().domain(groups.map(d => d.k)).range([pad.l, W - pad.r]).padding(0.3);
+    const y = d3.scaleLinear().domain([20, 90]).range([H - pad.b, pad.t]);
+    function kde(ks, X) { return V => X.map(x => [x, d3.mean(V, v => ks(x - v))]); }
+    function epaKernel(k) { return v => Math.abs(v /= k) <= 1 ? 0.75 * (1 - v * v) / k : 0; }
+    groups.forEach((g, i) => {
+      const X = d3.range(20, 91, 2);
+      const dens = kde(epaKernel(5), X)(g.vals);
+      const maxD = d3.max(dens, d => d[1]);
+      const w = x.bandwidth() / 2;
+      const wScale = d3.scaleLinear().domain([0, maxD]).range([0, w * 0.95]);
+      const cx = x(g.k) + w;
+      const area = d3.area().x(d => cx + wScale(d[1])).x0(d => cx - wScale(d[1])).y(d => y(d[0])).curve(d3.curveCatmullRom);
+      svg.append('path').datum(dens).attr('fill', T.palette[i]).attr('opacity', 0.6).attr('stroke', T.palette[i]).attr('d', area);
+      const med = d3.median(g.vals);
+      svg.append('line').attr('x1', cx - w * 0.4).attr('x2', cx + w * 0.4).attr('y1', y(med)).attr('y2', y(med)).attr('stroke', T.text).attr('stroke-width', 1.5);
+    });
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).ticks(5)), T);
+  })();
+
+  /* ---------------- HEXBIN ---------------- */
+  (function hex() {
+    const m = mount('d3-hex', 460, 210);
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const R = 10;
+    const cols = Math.floor((W - pad.l - pad.r) / (R * 1.732));
+    const rows = Math.floor((H - pad.b - pad.t) / (R * 1.5));
+    function hexPath(r) { return d3.range(6).map(i => [r * Math.sin(i * Math.PI / 3), -r * Math.cos(i * Math.PI / 3)]); }
+    const path = 'M' + hexPath(R).map(p => p.join(',')).join('L') + 'Z';
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const cx = pad.l + R * 1.732 * (c + (r % 2 ? 0.5 : 0)) + R;
+        const cy = pad.t + R * 1.5 * r + R;
+        const dx = (cx - W / 2) / (W / 2);
+        const dy = (cy - H / 2) / (H / 2);
+        const intensity = Math.max(0, 1 - Math.sqrt(dx * dx + dy * dy) - Math.random() * 0.3);
+        svg.append('path').attr('d', path).attr('transform', `translate(${cx},${cy})`)
+          .attr('fill', T.accent).attr('opacity', intensity * 0.9).attr('stroke', T.surface1).attr('stroke-width', 1);
+      }
+    }
+  })();
+
+  /* ---------------- DONUT ---------------- */
+  (function donut() {
+    const m = mount('d3-donut', 300, 240);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const data = [
+      { k: 'Cyan', v: 32 }, { k: 'Pink', v: 24 }, { k: 'Coral', v: 16 }, { k: 'Plum', v: 14 }, { k: 'Green', v: 14 },
+    ];
+    const g = svg.append('g').attr('transform', `translate(${W/2},${H/2})`);
+    const pie = d3.pie().value(d => d.v).padAngle(0.02).sort(null);
+    const arc = d3.arc().innerRadius(48).outerRadius(82);
+    const label = d3.arc().innerRadius(90).outerRadius(90);
+    g.selectAll('path').data(pie(data)).enter().append('path')
+      .attr('d', arc).attr('fill', (_, i) => T.palette[i])
+      .attr('filter', (_, i) => `drop-shadow(0 0 6px ${T.palette[i]}55)`);
+    g.selectAll('text').data(pie(data)).enter().append('text')
+      .attr('transform', d => `translate(${label.centroid(d)})`).attr('text-anchor', 'middle')
+      .attr('fill', T.textMuted).attr('font-family', T.mono).attr('font-size', 9)
+      .text(d => `${d.data.k} · ${d.data.v}%`);
+  })();
+
+  /* ---------------- RADIAL BAR ---------------- */
+  (function radial() {
+    const m = mount('d3-radial', 300, 240);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const data = d3.range(12).map((i) => ({ k: 'L' + (i + 1), v: 0.3 + Math.random() * 0.7 }));
+    const g = svg.append('g').attr('transform', `translate(${W/2},${H/2})`);
+    const inR = 24, outR = 95;
+    const angle = d3.scaleBand().domain(data.map(d => d.k)).range([0, 2 * Math.PI]).padding(0.08);
+    const r = d3.scaleLinear().domain([0, 1]).range([inR, outR]);
+    g.append('circle').attr('r', inR).attr('fill', T.surface1).attr('stroke', T.border);
+    g.selectAll('path').data(data).enter().append('path')
+      .attr('fill', (_, i) => T.palette[i % T.palette.length])
+      .attr('d', d => d3.arc()({ innerRadius: inR, outerRadius: r(d.v), startAngle: angle(d.k), endAngle: angle(d.k) + angle.bandwidth() }));
+  })();
+
+  /* ---------------- SUNBURST ---------------- */
+  (function sunburst() {
+    const m = mount('d3-sunburst', 300, 240);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const data = {
+      name: 'r', children: [
+        { name: 'Plan', children: [{ name: 'Frame', value: 8 }, { name: 'Discover', value: 6 }, { name: 'Validate', value: 4 }] },
+        { name: 'Build', children: [{ name: 'Corpus', value: 10 }, { name: 'Trace', value: 6 }, { name: 'Prototype', value: 8 }, { name: 'Wrap', value: 4 }] },
+        { name: 'Ship', children: [{ name: 'Gate', value: 4 }, { name: 'Review', value: 6 }, { name: 'Deploy', value: 8 }] },
+      ]
+    };
+    const root = d3.hierarchy(data).sum(d => d.value);
+    d3.partition().size([2 * Math.PI, 105])(root);
+    const arc = d3.arc().startAngle(d => d.x0).endAngle(d => d.x1).innerRadius(d => d.y0).outerRadius(d => d.y1);
+    const g = svg.append('g').attr('transform', `translate(${W/2},${H/2})`);
+    g.selectAll('path').data(root.descendants().filter(d => d.depth)).enter().append('path')
+      .attr('d', arc).attr('fill', d => T.palette[(d.depth - 1 + d.parent.children.indexOf(d)) % T.palette.length])
+      .attr('stroke', T.surface1).attr('stroke-width', 1);
+  })();
+
+  /* ---------------- TREEMAP ---------------- */
+  (function treemap() {
+    const m = mount('d3-treemap', 460, 240);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const items = [
+      { n: 'Components', v: 85 }, { n: 'Themes', v: 243 }, { n: 'Tests', v: 37 },
+      { n: 'Hooks', v: 11 }, { n: 'Tokens', v: 480 }, { n: 'MDX pages', v: 96 },
+      { n: 'Lab routes', v: 110 }, { n: 'Marks', v: 18 }, { n: 'Live insp.', v: 10 },
+      { n: 'Charts', v: 4 }, { n: 'Workshop snippets', v: 32 }, { n: 'Variants', v: 4 },
+      { n: 'CSS aliases', v: 60 }, { n: 'Stop-slop rules', v: 28 }, { n: 'Cheat cards', v: 20 }, { n: 'CHANGELOG entries', v: 220 },
+    ];
+    const root = d3.hierarchy({ name: 'r', children: items }).sum(d => d.v).sort((a,b)=>b.value-a.value);
+    d3.treemap().size([W, H]).padding(2)(root);
+    const node = svg.selectAll('g').data(root.leaves()).enter().append('g').attr('transform', d => `translate(${d.x0},${d.y0})`);
+    node.append('rect')
+      .attr('width', d => d.x1 - d.x0).attr('height', d => d.y1 - d.y0)
+      .attr('fill', (_, i) => T.palette[i % T.palette.length]).attr('opacity', 0.78).attr('rx', 2);
+    node.append('text').attr('x', 5).attr('y', 12).attr('fill', '#06000F')
+      .attr('font-family', T.body).attr('font-size', 10).attr('font-weight', 700)
+      .each(function (d) {
+        if (d.x1 - d.x0 > 50 && d.y1 - d.y0 > 22) d3.select(this).text(d.data.n);
+      });
+    node.append('text').attr('x', 5).attr('y', 24).attr('fill', '#06000F')
+      .attr('font-family', T.mono).attr('font-size', 9).attr('opacity', 0.8)
+      .each(function (d) {
+        if (d.x1 - d.x0 > 50 && d.y1 - d.y0 > 36) d3.select(this).text(d.data.v);
+      });
+  })();
+
+  /* ---------------- PACK ---------------- */
+  (function pack() {
+    const m = mount('d3-pack', 300, 240);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const items = d3.range(28).map(i => ({ name: 'n' + i, v: 1 + Math.random() * 30, ci: i % 8 }));
+    const root = d3.hierarchy({ children: items }).sum(d => d.v);
+    d3.pack().size([W, H]).padding(2)(root);
+    svg.selectAll('circle').data(root.leaves()).enter().append('circle')
+      .attr('cx', d => d.x).attr('cy', d => d.y).attr('r', d => d.r)
+      .attr('fill', d => T.palette[d.data.ci]).attr('opacity', 0.78)
+      .attr('stroke', d => T.palette[d.data.ci]);
+  })();
+
+  /* ---------------- WAFFLE ---------------- */
+  (function waffle() {
+    const m = mount('d3-waffle', 300, 240);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const shares = [{ k: 'A', v: 32 }, { k: 'B', v: 24 }, { k: 'C', v: 16 }, { k: 'D', v: 14 }, { k: 'E', v: 14 }];
+    const size = Math.min(W, H - 30) / 10 - 2;
+    const cells = [];
+    let idx = 0;
+    shares.forEach((s, si) => {
+      for (let i = 0; i < s.v; i++) {
+        cells.push({ r: Math.floor(idx / 10), c: idx % 10, ci: si });
+        idx++;
+      }
+    });
+    const ox = (W - size * 10 - 18) / 2;
+    const oy = (H - size * 10 - 18) / 2;
+    svg.append('g').attr('transform', `translate(${ox},${oy})`).selectAll('rect').data(cells).enter().append('rect')
+      .attr('x', d => d.c * (size + 2)).attr('y', d => d.r * (size + 2))
+      .attr('width', size).attr('height', size).attr('rx', 2)
+      .attr('fill', d => T.palette[d.ci]);
+  })();
+
+  /* ---------------- FORCE NETWORK ---------------- */
+  (function force() {
+    const m = mount('d3-force', 460, 280);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const nodes = d3.range(18).map(i => ({ id: i, g: i % 5 }));
+    const links = [];
+    for (let i = 1; i < nodes.length; i++) {
+      links.push({ source: i, target: Math.floor(Math.random() * i) });
+      if (Math.random() < 0.3) links.push({ source: i, target: Math.floor(Math.random() * i) });
+    }
+    const sim = d3.forceSimulation(nodes)
+      .force('link', d3.forceLink(links).distance(45).strength(0.8))
+      .force('charge', d3.forceManyBody().strength(-120))
+      .force('center', d3.forceCenter(W / 2, H / 2))
+      .force('collide', d3.forceCollide(12));
+    const link = svg.append('g').selectAll('line').data(links).enter().append('line')
+      .attr('stroke', T.border).attr('stroke-width', 1).attr('opacity', 0.6);
+    const node = svg.append('g').selectAll('circle').data(nodes).enter().append('circle')
+      .attr('r', 8).attr('fill', d => T.palette[d.g])
+      .attr('stroke', T.surface).attr('stroke-width', 2)
+      .attr('filter', d => `drop-shadow(0 0 4px ${T.palette[d.g]}aa)`);
+    sim.on('tick', () => {
+      link.attr('x1', d => d.source.x).attr('y1', d => d.source.y)
+          .attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+      node.attr('cx', d => d.x).attr('cy', d => d.y);
+    });
+    for (let i = 0; i < 200; i++) sim.tick();
+    sim.stop();
+    link.attr('x1', d => d.source.x).attr('y1', d => d.source.y).attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    node.attr('cx', d => d.x).attr('cy', d => d.y);
+  })();
+
+  /* ---------------- CHORD ---------------- */
+  (function chord() {
+    const m = mount('d3-chord', 460, 280);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const N = 6;
+    const matrix = d3.range(N).map(() => d3.range(N).map(() => Math.floor(Math.random() * 20)));
+    matrix.forEach((row, i) => row[i] = 0);
+    const radius = Math.min(W, H) / 2 - 30;
+    const chord = d3.chord().padAngle(0.06).sortSubgroups(d3.descending)(matrix);
+    const g = svg.append('g').attr('transform', `translate(${W/2},${H/2})`);
+    const arc = d3.arc().innerRadius(radius - 10).outerRadius(radius);
+    const ribbon = d3.ribbon().radius(radius - 10);
+    g.append('g').selectAll('path').data(chord.groups).enter().append('path')
+      .attr('fill', d => T.palette[d.index]).attr('stroke', T.surface).attr('d', arc);
+    g.append('g').attr('fill-opacity', 0.55).selectAll('path').data(chord).enter().append('path')
+      .attr('d', ribbon).attr('fill', d => T.palette[d.target.index])
+      .attr('stroke', d => T.palette[d.source.index]).attr('stroke-opacity', 0.4);
+  })();
+
+  /* ---------------- SANKEY ---------------- */
+  (function sankey() {
+    const m = mount('d3-sankey', 460, 280);
+    if (!m || typeof d3.sankey !== 'function') return;
+    const { svg, W, H } = m;
+    const nodes = [
+      { name: 'Recon' }, { name: 'Ingest' }, { name: 'Ontology' },
+      { name: 'CDA' }, { name: 'MIM' },
+      { name: 'Brief' }, { name: 'Dashboard' }, { name: 'Widget' },
+    ];
+    const links = [
+      { source: 0, target: 1, value: 14 }, { source: 0, target: 2, value: 6 },
+      { source: 1, target: 3, value: 10 }, { source: 1, target: 4, value: 4 },
+      { source: 2, target: 3, value: 4 }, { source: 2, target: 4, value: 6 },
+      { source: 3, target: 5, value: 5 }, { source: 3, target: 6, value: 6 },
+      { source: 3, target: 7, value: 3 },
+      { source: 4, target: 5, value: 4 }, { source: 4, target: 6, value: 3 }, { source: 4, target: 7, value: 3 },
+    ];
+    const sankey = d3.sankey()
+      .nodeWidth(10).nodePadding(10).extent([[8, 16], [W - 8, H - 16]]);
+    const graph = sankey({ nodes: nodes.map(d => ({ ...d })), links: links.map(d => ({ ...d })) });
+    svg.append('g').selectAll('rect').data(graph.nodes).enter().append('rect')
+      .attr('x', d => d.x0).attr('y', d => d.y0).attr('width', d => d.x1 - d.x0).attr('height', d => d.y1 - d.y0)
+      .attr('fill', (_, i) => T.palette[i % T.palette.length]).attr('rx', 2);
+    svg.append('g').attr('fill', 'none').selectAll('path').data(graph.links).enter().append('path')
+      .attr('d', d3.sankeyLinkHorizontal())
+      .attr('stroke', d => T.palette[d.source.index % T.palette.length])
+      .attr('stroke-width', d => Math.max(1, d.width)).attr('opacity', 0.4);
+    svg.append('g').selectAll('text').data(graph.nodes).enter().append('text')
+      .attr('x', d => d.x0 < W / 2 ? d.x1 + 4 : d.x0 - 4).attr('y', d => (d.y0 + d.y1) / 2)
+      .attr('dy', '0.32em').attr('text-anchor', d => d.x0 < W / 2 ? 'start' : 'end')
+      .attr('fill', T.textMuted).attr('font-family', T.mono).attr('font-size', 9).text(d => d.name);
+  })();
+
+  /* ---------------- DENDROGRAM ---------------- */
+  (function dendro() {
+    const m = mount('d3-tree', 460, 280);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const data = {
+      name: 'brand-kit', children: [
+        { name: 'tokens', children: [{ name: 'usareur' }, { name: 'nato' }, { name: 'hermes', children: [{ name: 'light' }, { name: 'mono' }, { name: 'toxic' }] }] },
+        { name: 'components', children: [{ name: 'primitives' }, { name: 'surfaces' }, { name: 'data display' }, { name: 'composition' }] },
+        { name: 'charts', children: [{ name: 'BarChart' }, { name: 'LineChart' }, { name: 'Donut' }, { name: 'Plot' }] },
+      ]
+    };
+    const root = d3.hierarchy(data);
+    d3.cluster().size([H - 20, W - 110])(root);
+    const g = svg.append('g').attr('transform', 'translate(10,10)');
+    g.append('g').attr('fill', 'none').attr('stroke', T.border).selectAll('path').data(root.links()).enter().append('path')
+      .attr('d', d3.linkHorizontal().x(d => d.y).y(d => d.x));
+    const n = g.append('g').selectAll('g').data(root.descendants()).enter().append('g')
+      .attr('transform', d => `translate(${d.y},${d.x})`);
+    n.append('circle').attr('r', 3).attr('fill', d => d.children ? T.accent : T.accent2);
+    n.append('text').attr('dx', d => d.children ? -6 : 6).attr('dy', 3)
+      .attr('text-anchor', d => d.children ? 'end' : 'start')
+      .attr('fill', T.textMuted).attr('font-family', T.mono).attr('font-size', 9).text(d => d.data.name);
+  })();
+
+  /* ---------------- HEATMAP ---------------- */
+  (function heat() {
+    const m = mount('d3-heat', 460, 220, { t: 22, r: 14, b: 24, l: 56 });
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const data = [];
+    for (let m = 0; m < 12; m++) for (let d = 0; d < 7; d++) data.push({ m, d, v: Math.random() });
+    const x = d3.scaleBand().domain(months).range([pad.l, W - pad.r]).padding(0.06);
+    const y = d3.scaleBand().domain(days).range([pad.t, H - pad.b]).padding(0.06);
+    const color = d3.scaleSequential([0, 1], v => d3.interpolate(T.surface3, T.accent)(v));
+    svg.selectAll('rect').data(data).enter().append('rect')
+      .attr('x', d => x(months[d.m])).attr('y', d => y(days[d.d]))
+      .attr('width', x.bandwidth()).attr('height', y.bandwidth())
+      .attr('rx', 2).attr('fill', d => color(d.v));
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(0,${H - pad.b})`).call(d3.axisBottom(x).tickSize(0)), T);
+    styleAxes(svg.append('g').attr('class', 'axis').attr('transform', `translate(${pad.l},0)`).call(d3.axisLeft(y).tickSize(0)), T);
+  })();
+
+  /* ---------------- CALENDAR HEATMAP ---------------- */
+  (function cal() {
+    const m = mount('d3-cal', 460, 200, { t: 12, r: 10, b: 18, l: 26 });
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const cellSize = Math.min(11, Math.floor((W - pad.l - pad.r) / 53));
+    const days = ['M','T','W','T','F','S','S'];
+    const yearData = d3.range(365).map(i => ({ day: i, v: Math.max(0, Math.sin(i / 18) * 0.5 + Math.random() * 0.7) }));
+    const color = d3.scaleSequential([0, 1.2], v => d3.interpolate(T.surface3, T.accent)(v));
+    yearData.forEach(d => {
+      const week = Math.floor(d.day / 7);
+      const dow = d.day % 7;
+      svg.append('rect').attr('x', pad.l + week * (cellSize + 1)).attr('y', pad.t + dow * (cellSize + 1))
+        .attr('width', cellSize).attr('height', cellSize).attr('rx', 1.5).attr('fill', color(d.v));
+    });
+    days.forEach((d, i) => {
+      svg.append('text').attr('x', pad.l - 4).attr('y', pad.t + i * (cellSize + 1) + cellSize - 2)
+        .attr('text-anchor', 'end').attr('font-family', T.mono).attr('font-size', 8)
+        .attr('fill', T.textDim).text(d);
+    });
+  })();
+
+  /* ---------------- PARALLEL COORDINATES ---------------- */
+  (function parcoord() {
+    const m = mount('d3-parcoord', 460, 220, { t: 16, r: 14, b: 24, l: 14 });
+    if (!m) return;
+    const { svg, W, H, pad } = m;
+    const dims = ['Coverage', 'Latency', 'Cost', 'Risk', 'Reach'];
+    const data = d3.range(18).map(i => ({
+      Coverage: Math.random() * 100, Latency: Math.random() * 100, Cost: Math.random() * 100,
+      Risk: Math.random() * 100, Reach: Math.random() * 100, c: i % 5,
+    }));
+    const x = d3.scalePoint().domain(dims).range([pad.l + 30, W - pad.r - 30]);
+    const y = {};
+    dims.forEach(k => y[k] = d3.scaleLinear().domain([0, 100]).range([H - pad.b, pad.t]));
+    const line = d3.line();
+    svg.selectAll('.path').data(data).enter().append('path')
+      .attr('d', d => line(dims.map(k => [x(k), y[k](d[k])])))
+      .attr('fill', 'none').attr('stroke', d => T.palette[d.c]).attr('stroke-width', 1.5).attr('opacity', 0.7);
+    dims.forEach(k => {
+      svg.append('g').attr('class', 'axis').attr('transform', `translate(${x(k)},0)`).call(d3.axisLeft(y[k]).ticks(4));
+      svg.append('text').attr('x', x(k)).attr('y', H - 4).attr('text-anchor', 'middle')
+        .attr('fill', T.text).attr('font-family', T.mono).attr('font-size', 9.5).text(k);
+    });
+    styleAxes(svg.selectAll('.axis'), T);
+  })();
+
+  /* ---------------- RADAR ---------------- */
+  (function radar() {
+    const m = mount('d3-radar', 460, 220);
+    if (!m) return;
+    const { svg, W, H } = m;
+    const axes = ['Coverage', 'Latency', 'Cost', 'Risk', 'Reach', 'Polish'];
+    const profiles = [
+      { name: 'baseline', vals: [0.55, 0.62, 0.42, 0.30, 0.50, 0.68], c: 0 },
+      { name: 'target',   vals: [0.85, 0.72, 0.62, 0.55, 0.78, 0.90], c: 1 },
+    ];
+    const cx = W / 2, cy = H / 2, R = Math.min(W, H) / 2 - 24;
+    const N = axes.length;
+    const angleFor = i => -Math.PI / 2 + (i * 2 * Math.PI) / N;
+    for (let r = 0.25; r <= 1; r += 0.25) {
+      const path = d3.range(N).map(i => [cx + Math.cos(angleFor(i)) * R * r, cy + Math.sin(angleFor(i)) * R * r]);
+      svg.append('polygon').attr('points', path.map(p => p.join(',')).join(' '))
+        .attr('fill', 'none').attr('stroke', T.border).attr('stroke-dasharray', '2 3');
+    }
+    axes.forEach((a, i) => {
+      const px = cx + Math.cos(angleFor(i)) * R, py = cy + Math.sin(angleFor(i)) * R;
+      svg.append('line').attr('x1', cx).attr('y1', cy).attr('x2', px).attr('y2', py).attr('stroke', T.border);
+      svg.append('text').attr('x', cx + Math.cos(angleFor(i)) * (R + 12)).attr('y', cy + Math.sin(angleFor(i)) * (R + 12))
+        .attr('text-anchor', Math.cos(angleFor(i)) > 0.2 ? 'start' : Math.cos(angleFor(i)) < -0.2 ? 'end' : 'middle')
+        .attr('dominant-baseline', 'middle').attr('fill', T.textMuted).attr('font-family', T.mono).attr('font-size', 9.5).text(a);
+    });
+    profiles.forEach(p => {
+      const pts = p.vals.map((v, i) => [cx + Math.cos(angleFor(i)) * R * v, cy + Math.sin(angleFor(i)) * R * v]);
+      svg.append('polygon').attr('points', pts.map(q => q.join(',')).join(' '))
+        .attr('fill', T.palette[p.c]).attr('opacity', 0.32).attr('stroke', T.palette[p.c]).attr('stroke-width', 2);
+      pts.forEach(q => svg.append('circle').attr('cx', q[0]).attr('cy', q[1]).attr('r', 3).attr('fill', T.palette[p.c]));
+    });
+  })();
+
+})();
+</script>
 </body>
 </html>
